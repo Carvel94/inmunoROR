@@ -1,0 +1,75 @@
+   <div id="page-wrapper">
+      <div class="container-fluid">
+        <!-- Page Heading -->
+        <%= render 'shared/dosFilasVistas', tituloVentana: "Agregar página a la opción: "+ (formatearOpcionMenu @opcionMenu.titulo) %>
+
+        <div class="row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-10">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">
+                    Página creada para la opción de menu: <br /> <%=formatearOpcionMenu @opcionMenu.titulo.html_safe%>
+                  </h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item"><strong>Título en el menú de opciones:</strong>
+                  <%=@administrator_menu_nivel0_menu_nivel1.titulo%>
+                  </li>
+                  <li class="list-group-item"><strong>Tipo de opción:</strong>
+                  <%if @administrator_menu_nivel0_menu_nivel1.tipo%>
+					cargar una página de contenido
+				<%else%>
+					Es una opción de submenu%>
+        <%end%>
+                  </li>
+                 <li class="list-group-item"><strong>Título del contenido de la página a mostrar:</strong>
+                  <%=@administrator_menu_nivel0_menu_nivel1.titulo_contenido%>
+                  </li>
+                  <li class="list-group-item"><strong>Estado de la página:</strong>
+                  <%if @administrator_menu_nivel0_menu_nivel1.estado%>
+                     El contenido está visible desde este momento como una página
+                  <%else%>
+                     El contenido no está visible 
+                  <%end%>
+                  </li>
+
+                 <li class="list-group-item"><strong>Imagen principal a mostrar en la página:</strong>
+                  <%if @administrator_menu_nivel0_menu_nivel1.imagen_banner.blank?%><br />
+                    <%= image_tag "page-titlebg.jpg",size: "900x83", alt: "Imagen por defecto" %>
+                  <%else%>  
+                    <%= image_tag @administrator_menu_nivel0_menu_nivel1.imagen_banner, alt: "#{@administrator_menu_nivel0_menu_nivel1.imagen_banner}" %>
+                  <%end%>
+                  </li>
+                  <li class="list-group-item"><strong>Contenido de la página:</strong>
+                  <%=@administrator_menu_nivel0_menu_nivel1.contenido.html_safe%>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+         <div class="col-lg-1"></div>  
+        </div>
+       <!-- /.row -->
+
+        <div class="row">
+           <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <%puts "opcion menu #{@opcionMenu} #{@opcionMenu.id}"%>
+            <%= link_to 'Modificar', edit_administrator_menu_nivel0_menu_nivel1_path(@opcionMenu.id) %> |
+            <%= link_to 'Regresar', administrator_menu_nivel0s_path %>
+          </div>
+          <div class="col-lg-3"></div>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /#page-wrapper -->
+
+
+        
+
+

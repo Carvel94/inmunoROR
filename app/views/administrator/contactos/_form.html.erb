@@ -1,0 +1,26 @@
+<%=simple_form_for([:administrator, @contacto], url: administrator_contacto_path(@contacto)) do |f| %>
+
+<%puts "FORM"%>
+<%puts @contacto.to_yaml%> 
+
+<%= f.error_notification %>
+
+<ul class="list-group">
+   <li class="list-group-item"><strong>Nombre del usuario:</strong>
+   <%=@contacto.nombre%>
+   </li>
+    <li class="list-group-item"><strong>Fecha de la consulta:</strong>
+   <%=@contacto.created_at.to_s(:custom_datetime)%>
+   </li>
+   <li class="list-group-item"><strong>Consulta:</strong>
+   <%=@contacto.mensaje%>
+   </li>
+</ul>
+
+<%= f.input :respuesta, as: :text, label: 'Respuesta', placeholder: "Coloque aquí la respuesta a la consulta del usuario", :input_html => {:style=> 'width: 100%;', :rows =>5} %>   
+
+
+<div class="form-actions" align="center">
+   <%= f.button :submit, 'Enviar respuesta', :class=> "btn btn-primary" %>
+</div>
+<% end %>

@@ -1,0 +1,96 @@
+
+<div class="clearfix"></div>
+
+<div class="page_title">
+		<div class="title"><h1>Zona privada</h1></div>
+       
+
+<!-- Contant
+======================================= -->
+
+<div>
+ <div class="content_fullwidth2">
+  <div class="one_half_center">
+   <div class="framed-box">
+    <div class="framed-box-wrap">
+     <div class="pricing-title">
+      <h3>Coloque sus datos de acceso a la zona privada</h3>
+     </div>
+    <div class="pricing-text-list">
+    
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <% if @usuario.errors.any? %>
+<div class="alert alert-danger">
+    <h2><%= pluralize(@usuario.errors.count, "error") %> No se pudo registrar el usuario por los siguiente errores:</h2>
+
+ <div id="error_explanation">
+  <ul>
+   <% @usuario.errors.full_messages.each do |message| %>
+   <li><%= message %></li>
+   <% end %>
+  </ul>
+ </div>
+</div>
+<% end %>
+
+
+<% if notice %>
+<div class="success">
+<div class="message-box-wrap2"> 
+  <%= notice %>
+  </div>
+</div>
+<% end %>
+
+
+<% if alert %>
+<div class="error">
+<div class="message-box-wrap2"> 
+  <%= alert %>
+  </div>
+</div>
+<% end %>
+
+  
+ <div class="form-group">
+  	 <%= f.label "Nombre de usuario:", :class=>"control-label col-md-4 right-label" %>
+  		<div class="input-group col-md-7">
+      <%= f.text_field :username,:class=>"form-control",:placeholder=>"Coloque su nombre de usuario", autofocus: true %>      
+    </div>
+  </div>
+
+  <div class="form-group">
+  	 <%= f.label "Contraseña:",:class=>"control-label col-md-4 right-label" %>
+  		<div class="input-group col-md-7">
+      <%= f.password_field :password,:class=>"form-control",:placeholder=>"Contraseña", autocomplete: "off" %>     
+    </div>
+  </div>
+
+  
+  <div class="actions">
+    <%= f.submit "Iniciar Sesión", :class => 'btn btn-primary' %>
+  </div>
+  <br />
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label "Recordarme" %>
+    </div>
+  <% end -%>
+<% end %>
+
+
+<%= render "devise/shared/links" %>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div><!-- end section -->
+   </div><!-- end content area -->
+
+<div class="clearfix mar_top3"></div>
+
+
+

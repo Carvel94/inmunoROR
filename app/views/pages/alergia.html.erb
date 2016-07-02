@@ -1,0 +1,40 @@
+<div class="clearfix"></div>
+<div class="page_title">
+  <div class="container">
+    <div class="title">
+      <h1></h1>
+    </div>
+  </div>
+</div>
+<!-- end page title --> 
+<!-- Contant
+  ======================================= -->
+<div class="container">
+  <div class="content_left">
+    <h2><strong><%= "#{formatearOpcionMenu @opcionMenu0.titulo} : #{@pagina.titulo}"%></strong></h2>
+    <%= @pagina.contenido.html_safe %>
+  </div>
+  <!-- end content left side area -->
+  <!-- right sidebar starts -->
+  <div class="right_sidebar">
+    <div class="sidebar_widget">
+      <div class="sidebar_title">
+        <h3><%=formatearOpcionMenu @opcionMenu0.titulo%></i></h3>
+      </div>
+      <ul class="arrows_list1">
+        <% @enlaces.each do |enlace| %>     
+        <li>
+          <%=link_to send("#{@opcionMenu0.enlace}_path", enlace.id) do %>
+          <i class="fa fa-angle-right"></i><%=formatearOpcionMenu enlace.titulo%>
+          <%end%>
+        </li>
+        <%end%>
+      </ul>
+    </div>
+    <!-- end section -->
+    <div class="clearfix mar_top4"></div>
+  </div>
+</div>
+<!-- end content area -->
+<div class="clearfix"></div>
+<div class="mar_top5"></div>

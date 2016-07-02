@@ -1,0 +1,117 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <%= render 'shared/dosFilasVistas', tituloVentana: "Menú Principal - Opción: #{formatearOpcionMenu @opcionMenu.titulo.html_safe}" %>
+    <%if !@administrator_menu_nivel0_menu_nivel1s.empty?%>
+    <div class="row">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <div align="center">
+              <h4 class="list-group-item-heading">Páginas del menú: <%= formatearOpcionMenu @opcionMenu.titulo.html_safe%> </h4>
+            </div>
+          </a>
+        </div>
+        <!-- <div  align="right">
+          <%#= button_to "Agregar pregunta", new_administrator_faq_path, :method => "get", :class=> "btn btn-primary" %>
+          </div>
+          <br />
+          -->
+        <% @administrator_menu_nivel0_menu_nivel1s.each_with_index do |opcion,i| %>
+        <div class="panel-group" id="accordion-<%=i.to_s%>">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>">
+                <%= formatearOpcionMenu opcion.titulo.html_safe%></a>
+                <div class="pull-right">
+                  <div class="controls">
+                    Posición:&nbsp; <%=opcion.posicion%>&nbsp;&nbsp;| <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><span class="fa fa-fw fa-search"></span></a>
+                    <%=link_to edit_administrator_menu_nivel0_menu_nivel1_path(opcion),
+                      title: 'Actualizar opción de menú principal',
+                       'data-toggle' => 'tooltip',
+                       'data-placement' => 'right' do %>
+                    <span class="fa fa-fw fa-pencil"></span>
+                    <%end%>
+                    
+                    <%#=link_to new_administrator_menu_nivel0_menu_nivel1_path(opcion.id),
+                      title: 'Agregar sub-página a esta opción',
+                       'data-toggle' => 'tooltip',
+                       'data-placement' => 'right' do %>
+                    <!---<span class="fa fa-fw fa-file-text-o"></span>-->
+                    <%#end%>
+                    <%#=link_to administrator_menu_nivel0_menu_nivel1s_path(opcion.id),
+                      title: 'Ver paginas de esta opción',
+                       'data-toggle' => 'tooltip',
+                       'data-placement' => 'right' do %>
+                    <!--<span class="fa fa-fw fa-list-ul"></span> -->
+                    <%#end%>
+                    <%=link_to administrator_menu_nivel0_menu_nivel1_path(opcion), method: :delete, 
+                      title: 'Eliminar está página del menu',
+                       'data-toggle' => 'tooltip',
+                       'data-placement' => 'right',
+                       data: { confirm: 'Esta seguro que desea eliminar esta página?' }  do %>
+                    <span class="fa fa-fw fa-trash-o"></span>
+                    <%end%>
+                  </div>
+                </div>
+              </h4>
+            </div>
+            <div id="collapse1-<%=i.to_s%>" class="panel-collapse collapse out">
+              <div class="panel-body">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <!--<caption>Optional table caption.</caption> -->
+                    <thead>
+                      <tr>
+                        <th>Posición</th>
+                        <th>Visible en el menú</th>
+                        <th>Enlace único</th>
+                        <th>Número de sub enlaces</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">
+                          <div align="center"><%=opcion.posicion%></div>
+                        </th>
+                        <td>
+                          <div align="center"><%=opcion.estado ? "Si" : "No" %></div>
+                        </td>
+                        <td>
+                          <div align="center"><% if opcion.enlace.empty?%>
+                            No
+                            <%else%>
+                            Si
+                            <%end%>
+                          </div>
+                        </td>
+                        <td>
+                          <div align="center">0</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6" align="center">
+      <%= button_to "Agregar nueva página", new_administrator_menu_nivel0_menu_nivel1_path(@opcionMenu.id), :method => "get", :class=> "btn btn-primary" %>
+      <br />
+      <%= link_to 'Regresar', administrator_menu_nivel0s_path %>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->

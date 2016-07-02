@@ -1,0 +1,66 @@
+<div id="page-wrapper">
+   <div class="container-fluid2">
+   <%= render 'shared/dosFilasVistaShow', tituloVentana: "Buscar paciente en tratamiento"%>
+
+      <div class="row" >       
+          <div class="col-md-1"></div>
+          <div class="col-md-10">         
+          <div class="panel panel-primary" style="margin-bottom: 10px">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center"><h3 class="panel-title">Paciente a buscar </h3></div>
+              </div>
+              <div class="panel-body2">
+                 <div class="list-group" style="margin-bottom: 1px">
+						<!--se coloca el simbolo :paciente y no el objeto @paciente para que no use el modelo paciente -->
+		               <%=simple_form_for(:paciente, remote: true, url: (buscar_administrator_pacientes_path), method: :get, html: { class: 'form-horizontal' }) do |f| %>
+
+		<%#=simple_form_for(@contacto, url: (contactos_path), html: { class: 'form-horizontal' }) do |f| %>
+							<%= f.error_notification %>
+							<% if @paciente.errors.any? %>
+								<div class="alert alert-danger">
+								   <div class="error_explanation">
+								      <ul>
+								         <% @paciente.errors.each do |attr,msg| %>
+								         <li><%= "#{msg}" if @paciente.errors[attr].first == msg %> </li>
+								         <% end %>
+								      </ul>
+								   </div>
+								</div>
+							<% end %>
+							<div class="form-group" style="margin-bottom:5px">
+								<label class="control-label col-md-2" >*Dato a buscar:</label>
+								<div class="col-md-7" style="height:1px">
+									<%= f.input :datoBuscar, label: false, placeholder: "Coloque Número de cédula/nombre/apellido/email/número en tratamiento a buscar", wrapper_html: { class: 'username' } %>	
+								</div>
+
+								<div class="col-md-2">
+									<div class="form-actions" align="center">
+									 	  <%= f.button :submit, 'Buscar paciente', :class=> "btn-primary" %>
+									</div>
+								</div>
+							</div>
+					  <% end %>
+                  </div>
+                </div>
+          </div>
+          </div>
+          <div class="col-md-1"></div>
+         </div> <!-- /.row -->
+       
+
+<div id="loading-indicator" style="margin-bottom: 5px">
+ <%= image_tag("ajax-loader.gif", :id => "loading-indicator", :style => "display:none") %>
+</div>
+
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1" id="pacientes">
+     <%#= render @pacientes %>
+  </div>
+</div>
+
+
+ </div><!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->
+        

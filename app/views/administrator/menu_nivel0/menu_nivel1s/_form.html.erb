@@ -1,0 +1,81 @@
+<%=simple_form_for(@administrator_menu_nivel0_menu_nivel1, url: (@administrator_menu_nivel0_menu_nivel1.new_record? ? administrator_menu_nivel0_menu_nivel1s_path() : administrator_menu_nivel0_menu_nivel1_path(@administrator_menu_nivel0_menu_nivel1)))do |f| %>
+
+<%#=simple_form_for(@administrator_menu_nivel0_menu_nivel1, url: (@administrator_menu_nivel0_menu_nivel1.new_record? ? administrator_menu_nivel0_menu_nivel1s_path() : administrator_menu_nivel0_menu_nivel1_path(@administrator_menu_nivel0_menu_nivel1)),:html => { :multipart => true })do |f| %>
+
+<%=f.input :administrator_menu_nivel0_id, :as => :hidden, :input_html => { :value => @administrator_menu_nivel0_menu_nivel1.administrator_menu_nivel0_id } %>
+
+
+<%= f.error_notification %>
+<% if @administrator_menu_nivel0_menu_nivel1.errors.any? %>
+	<div class="alert alert-danger">
+	   <div class="error_explanation">
+	      <ul>
+	         <% @administrator_menu_nivel0_menu_nivel1.errors.each do |attr,msg| %>
+	         <li><%= "#{msg}" if @administrator_menu_nivel0_menu_nivel1.errors[attr].first == msg %> </li>
+	         <% end %>
+	      </ul>
+	   </div>
+	</div>
+<% end %>
+
+
+ <%= f.input :titulo,label: 'Título en el menú', placeholder: "Título que que se mostrará en el menú de opciones", wrapper_html: { class: 'username' },:input_html => {:maxlength => 24, :size => 24, :style=> 'width: 250px;'} %>                     
+
+<%#= f.input :tipo, label: "Tipo de opción",
+                :collection => [[true, 'Carga una página'], [false, 'Muestra un sub-menu']], 
+                          :label_method => :last, 
+                          :value_method => :first,
+                          :as => :radio_buttons, 
+                          :wrapper_class => 'inline',
+                          :checked => true%>
+
+<%#= f.label "Tipo de opción" %>
+<%#= f.input :tipo, label: false,
+                :collection => [[true, 'Carga una página']], 
+                          :label_method => :last, 
+                          :value_method => :first,
+                          :as => :radio_buttons, 
+                          :wrapper_class => 'inline',
+                          :checked => true%>
+
+<%#= f.input :tipo, label: false,
+                :collection => [[false, 'Muestra un sub-menu']], 
+                          :label_method => :last, 
+                          :value_method => :first,
+                          :as => :radio_buttons, 
+                          :wrapper_class => 'inline',
+                          :input_html => { :disabled => true } %>
+
+
+<%= f.input :titulo_contenido,  label: 'Título del contenido en la página',  placeholder: "Coloque el título que mostrará en la página, si lo deja en blanco se colocará el mismo que aparece en el enlace", wrapper_html: { class: 'username' },:input_html => {:maxlength => 140, :size => 140, :style=> 'width: 950px;'} %>  
+
+<% if action_name =="edit" or action_name =="update" %>
+     <strong> Imagen actual: </strong>
+     <%=image_tag @administrator_menu_nivel0_menu_nivel1.imagen_banner.large_avatar %> <br />
+<%end%> 
+
+
+
+ <%= f.input :imagen_banner,  label: 'Imagen a mostrar:',  placeholder: "Coloque aquí la ruta donde se encuentra la imagen", wrapper_html: { class: 'username' },:input_html => {:maxlength => 140, :size => 140, :style=> 'width: 950px;'} %>  
+
+
+<div class="alert alert-info  fade in">
+  Recuerde que la imagen a subir debe ser de 1265x300 pixeles (ancho x alto)
+</div>
+
+<%= f.input :estado, label: "Estado visible",
+:collection => [[true, 'Si'], [false, 'No']], 
+          :label_method => :last, 
+          :value_method => :first,
+          :as => :radio_buttons, 
+          :wrapper_class => 'inline',
+          :checked => true%>
+
+
+<%= f.input :contenido, label: "Coloque el contenido de la página", :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'mini'} } %>
+
+
+<div class="form-actions" align="center">
+   <%= f.button :submit, labelBoton, :class=> "btn btn-primary" %>
+</div>
+<% end %>

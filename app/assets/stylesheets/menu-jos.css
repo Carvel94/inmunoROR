@@ -1,0 +1,45 @@
+#btn-menu {
+	/* la sig desaparece el checkbox*/
+	display: none;
+}
+
+#menu_main label{
+	font-size: 30px;
+	cursor: pointer;
+	/*la sig desaparece el icono del menu*/
+	display: none;
+}
+
+.menu ul{
+	background: #CE852A;
+	display: flex;
+	list-style: none;
+}
+
+.menu ul ul {
+	display: none;
+
+}
+
+.menu a{
+	display:block;
+	padding:15px 20px;
+	color:#fff;
+	text-decoration: none;
+}
+
+.menu a:hover{
+	background: rgba(0,0,0,0.3);
+}
+
+.menu a span{
+	margin-left: 10px;
+}
+
+/*la siguiente linea aplica el css a lo que está en el segundo ul que esta dentro del li pero solo cuando se pasa el mouse sobre el li */
+
+.menu ul li:hover ul{
+	display:block;
+	/*al no colocar la linea siguiente la caja es completa de izquierda a derecha de la ventana, pero al colocar la sig instrucción el tamaÑo de la caja es con respecto a su ubicación */
+	position: absolute;
+}

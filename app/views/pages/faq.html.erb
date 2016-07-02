@@ -1,0 +1,49 @@
+<div class="clearfix"></div>
+<div class="page_title">
+    <div >
+        <div class="title"><h1>F.A.Q.</h1></div>
+    </div>
+</div><!-- end page title --> 
+
+
+<!-- Contant
+======================================= -->
+
+<div >
+<div class="content_left">
+    <div class="accrodation" style="height:auto">
+    	<h2 class="titulo-pagina">Preguntas más frecuentes sobre la  <strong>Alergia</strong></h2>
+             <% @faqs.each do |faq| %>
+             <span class="acc-trigger "><a href="#"><%=faq.pregunta%></a></span>
+                <div class="acc-container">
+                    <div class="content"><%= faq.respuesta%></div>
+                </div>
+                <br />
+            <%end%>  
+    </div>
+    
+</div><!-- end content left side area -->
+
+
+<!-- right sidebar starts -->
+<div class="right_sidebar">
+
+	<div class="sidebar_widget">
+    	<div class="sidebar_title"><h3>More <i>About Us</i></h3></div>
+		<ul class="arrows_list1">		
+            <li><a href="#"><i class="fa fa-angle-right"></i> Our History</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Professional Research</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Our Development</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Partnership With Us</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Company Carreer</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> New Technology</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Client Testimonials</a></li>
+		</ul>
+	</div><!-- end section -->
+    <div class="clearfix mar_top4"></div>
+</div>
+
+</div><!-- end content area -->
+
+<div class="clearfix"></div>
+<div class="mar_top5"></div>

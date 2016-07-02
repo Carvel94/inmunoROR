@@ -1,0 +1,69 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+   <%= render 'shared/dosFilasVistas', tituloVentana: "F.A.Q." %>
+
+    <%if !@faqs.empty?%>
+    
+    <div class="row">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <div align="center">
+              <h4 class="list-group-item-heading">Preguntas más frecuentes</h4>
+            </div>
+          </a>
+        </div>
+        <div  align="right">
+          <%= button_to "Agregar pregunta", new_administrator_faq_path, :method => "get", :class=> "btn btn-primary" %>
+        </div>
+        <br />
+        <% @faqs.each_with_index do |faq,i| %>
+        <div class="panel-group" id="accordion-<%=i.to_s%>">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><%=faq.pregunta%></a>
+                <div class="pull-right">
+                  <div class="controls">
+                    <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><span class="fa fa-fw fa-search"></span></a>
+                    
+                    <%=link_to edit_administrator_faq_path(faq),
+                    title: 'Actualizar la pregunta',
+                     'data-toggle' => 'tooltip',
+                     'data-placement' => 'right' do %>
+                    <span class="fa fa-fw fa-pencil"></span>
+                    <%end%>
+                    <%=link_to  administrator_faq_path(faq), method: :delete, 
+                    title: 'Eliminar la pregunta',
+                     'data-toggle' => 'tooltip',
+                     'data-placement' => 'right',
+                     data: { confirm: 'Esta seguro que desea eliminar la pregunta?' }  do %>
+                    <span class="fa fa-fw fa-trash-o"></span>
+                    <%end%>
+                  </div>
+                </div>
+              </h4>
+            </div>
+            <div id="collapse1-<%=i.to_s%>" class="panel-collapse collapse out">
+              <div class="panel-body"><%=faq.respuesta%></div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+  <% end %>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6" align="right">
+      <%= button_to "Agregar pregunta", new_administrator_faq_path, :method => "get", :class=> "btn btn-primary" %>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->

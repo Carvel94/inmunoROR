@@ -1,0 +1,121 @@
+ <%if current_usuario %>       
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">               
+           <%=image_tag "logo.png", class: "logo"%>
+           <a class="navbar-brand" href="index.html"></a>
+        </div>
+          
+        <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+
+<!-- ADMINISTRACIÓN INICIO -->
+<li class="dropdown">
+    <%=link_to admin_path do %>
+        <i class="fa fa-home"></i>Inicio
+    <%end%>
+ </li> 
+<!-- FIN ADMINISTRACIÓN INICIO -->
+
+<!--ADMINISTRACION CMS -->
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-magic"></i>&nbsp;CMS <b class="caret"></b></a>
+  <ul class="dropdown-menu alert-dropdown">
+     <li><%=link_to "Menú principal", administrator_menu_nivel0s_path  %></li>
+     <li class="divider"></li>
+  <% @opcionesMenu.each_with_index do |opcion,i| %>
+    <li>
+      <%=link_to formatearOpcionMenu(opcion.titulo), administrator_menu_nivel0_menu_nivel1s_path(opcion.id) %>
+    </li>
+  <%end%>
+ 
+  </ul>
+</li>
+<!-- FIN ADMINISTRACIÓN CMS -->
+
+<!-- ADMINISTRACIÓN FAQ -->
+<li class="dropdown">
+     <%=link_to administrator_faqs_path do %>
+        <i class="fa fa-question-circle"></i>&nbsp;&nbsp;F.A.Q. </a>
+    <%end%>
+</li> 
+<!-- FIN ADMINISTRACIÓN FAQ -->
+
+<!-- ADMINISTRACIÓN TIPs -->
+<li class="dropdown">
+     <%=link_to administrator_tips_path do %>
+        <i class="fa fa-gratipay"></i>&nbsp;&nbsp;Tips </a>
+    <%end%>
+</li> 
+<!-- FIN ADMINISTRACIÓN TIPs -->
+
+
+
+<!-- ADMINISTRACIÓN CARRUSEL -->
+<li class="dropdown">
+ <%=link_to administrator_configurations_path do %>
+        <i class="fa fa-gratipay"></i>&nbsp;&nbsp;Carrucel de imagenes </a>
+<%end%>
+
+<!-- FIN ADMINISTRACIÓN CARRUSEL -->
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i>&nbsp;Alertas <b class="caret"></b></a>
+  <!--<ul class="dropdown-menu alert-dropdown">
+    <li>
+      <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+    </li>
+    <li>
+      <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+    </li>
+    <li>
+      <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+    </li>
+    <li>
+      <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+    </li>
+    <li>
+      <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+    </li>
+    <li>
+      <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="#">View All</a>
+    </li>
+  </ul>-->
+</li>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+    <% if current_usuario.rol == 1%>
+		Dr(a).
+	<%end%>
+		<%=current_usuario.nombre + "  "+ current_usuario.apellido%>		
+    <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+	    <li>
+	        <%=link_to edit_usuario_registration_path do %>
+	        	<i class="fa fa-fw fa-user-md"></i>Datos personales
+	    	<%end%>
+	    </li>
+	    <li>
+	        <%=link_to edit_usuario_path do %>
+	        	<i class="fa fa-fw fa-key"></i>Datos de acceso
+	    	<%end%>
+	    </li>
+	    <li class="divider"></li>
+	    <!--<li>
+	    	<a href="#"><i class="fa fa-fw fa-gears"></i> Configuración</a>
+	    </li>
+	    <li class="divider"></li>-->
+	    <li>
+	        <%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete, :class => 'btn btn-primary'%>
+	    </li>
+    </ul>
+</li>
+</ul>
+</nav>
+<%else%>
+Usted no está logeado
+<%end%>

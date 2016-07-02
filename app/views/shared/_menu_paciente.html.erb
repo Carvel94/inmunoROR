@@ -1,0 +1,78 @@
+     
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">               
+           <%=image_tag "logo.png", class: "logo"%>
+           <a class="navbar-brand" href="index.html"></a>
+        </div>
+          
+        <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+
+
+<li class="dropdown">
+    <%=link_to admin_path do %>
+        <i class="fa fa-home"></i>Inicio
+    <%end%>
+ </li> 
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-magic"></i>Menu 1 <b class="caret"></b></a>
+  <ul class="dropdown-menu alert-dropdown">
+     <li><%=link_to "Sub opción 1", ejemplo1_path  %></li>
+     <li class="divider"></li>
+      <li><%=link_to "Sub opción 1", ejemplo1_path  %></li>
+     <li class="divider"></li>
+      <li><%=link_to "Sub opción 1", ejemplo1_path  %></li>
+     <li class="divider"></li>
+      <li><%=link_to "Sub opción 1", ejemplo1_path  %></li>
+     <li class="divider"></li>
+      <li><%=link_to "Sub opción 1", ejemplo1_path  %></li>
+     <li class="divider"></li>
+  </ul>
+</li>
+
+<li class="dropdown">
+     <%=link_to ejemplo1_path do %>
+        <i class="fa fa-gratipay"></i>&nbsp;&nbsp;Opción 2</a>
+    <%end%>
+   
+</li> 
+
+<li class="dropdown">
+    <%=link_to ejemplo1_path do %>
+        <i class="fa fa-gratipay"></i>&nbsp;&nbsp;Opción 3 </a>
+    <%end%>
+</li> 
+
+<li class="dropdown">
+ <%=link_to ejemplo1_path do %>
+        <i class="fa fa-gratipay"></i>&nbsp;&nbsp;Opción 3 </a>
+<%end%>
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+    <% if current_usuario.rol == 1%>
+    Dr(a).
+  <%end%>
+    <%=current_usuario.nombre + "  "+ current_usuario.apellido%>    
+    <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li>
+          <%=link_to edit_usuario_registration_path do %>
+            <i class="fa fa-fw fa-user-md"></i>Datos personales
+        <%end%>
+      </li>
+      <li>
+          <%=link_to edit_usuario_path do %>
+            <i class="fa fa-fw fa-key"></i>Datos de acceso
+        <%end%>
+      </li>
+      <li class="divider"></li>
+      <li>
+          <%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete, :class => 'btn btn-primary'%>
+      </li>
+    </ul>
+</li>
+</ul>
+</nav>
+

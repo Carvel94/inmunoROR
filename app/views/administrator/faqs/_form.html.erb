@@ -1,0 +1,24 @@
+<%=simple_form_for(@faq, url: (@faq.new_record? ? administrator_faqs_path : administrator_faq_path(@faq)))do |f| %>
+
+<%= f.error_notification %>
+
+<% if @faq.errors.any? %>
+
+<div class="alert alert-danger">
+   <div class="error_explanation">
+      <ul>
+         <% @faq.errors.each do |attr,msg| %>
+         <li><%= "#{msg}" if @faq.errors[attr].first == msg %> </li>
+         <% end %>
+      </ul>
+   </div>
+</div>
+<% end %>
+
+<%= f.input :pregunta, label: 'Pregunta', placeholder: "Coloque la pregunta", wrapper_html: { class: 'username' } %>	
+
+<%= f.input :respuesta, as: :text, label: 'Respuesta', placeholder: "Coloque la respuesta", :input_html => {:rows => 10} %>	
+<div class="form-actions" align="center">
+   <%= f.button :submit, labelBoton, :class=> "btn btn-primary" %>
+</div>
+<% end %>

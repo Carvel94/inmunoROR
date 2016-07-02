@@ -1,0 +1,87 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <%= render 'shared/dosFilasVistas', tituloVentana: "Agregar página a la opción: "+ (formatearOpcionMenu @opcionMenu.titulo) %>
+    <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title"></h3>
+            <div style="text-align: center">
+              <h3 class="panel-title">Modificar Página </h3>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="list-group">
+              <%#=render 'form', labelBoton: "Modificar" %>
+              <%=simple_form_for(@administrator_menu_nivel0_menu_nivel1, url: administrator_menu_nivel0_menu_nivel1_path(@administrator_menu_nivel0_menu_nivel1),:html => { :multipart => true })do |f| %>
+              <%=f.input :administrator_menu_nivel0_id, :as => :hidden, :input_html => { :value => @administrator_menu_nivel0_menu_nivel1.administrator_menu_nivel0_id } %>
+              <%= f.error_notification %>
+              <% if @administrator_menu_nivel0_menu_nivel1.errors.any? %>
+              <div class="alert alert-danger">
+                <div class="error_explanation">
+                  <ul>
+                    <% @administrator_menu_nivel0_menu_nivel1.errors.each do |attr,msg| %>
+                    <li><%= "#{msg}" if @administrator_menu_nivel0_menu_nivel1.errors[attr].first == msg %> </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+              <% end %>
+
+              <%= f.input :titulo,label: 'Título en el menú', placeholder: "Título que que se mostrará en el menú de opciones", wrapper_html: { class: 'username' },:input_html => {:maxlength => 24, :size => 24, :style=> 'width: 250px;'} %>                     
+              
+              <%#= f.input :tipo, label: "Tipo de opción",
+                :collection => [[true, 'Carga una página'], [false, 'Muestra un sub-menu']], 
+                          :label_method => :last, 
+                          :value_method => :first,
+                          :as => :radio_buttons, 
+                          :wrapper_class => 'inline',
+                          :checked => true%>
+
+              <%= f.input :titulo_contenido,  label: 'Título del contenido en la página', placeholder: "Coloque el título que mostrará en la página, si lo deja en blanco se colocará el mismo que aparece en el enlace", wrapper_html: { class: 'username' },:input_html => {:maxlength => 140, :size => 140, :style=> 'width: 950px;'} %>  
+              <% if action_name =="edit" or action_name =="update" %>
+              <strong>Imagen actual: </strong>
+            
+              <%if !@administrator_menu_nivel0_menu_nivel1.imagen_banner.blank?%>
+              <%=image_tag @administrator_menu_nivel0_menu_nivel1.imagen_banner %> 
+              <%else%>
+              <strong> No tiene imagen asignada. Se coloca imagen por defecto </strong>
+              <%end%>
+              <br />
+              <%end%> 
+              
+               <%= f.input :imagen_banner,  label: 'Imagen a mostrar:',  placeholder: "Coloque aquí la ruta donde se encuentra la imagen", wrapper_html: { class: 'username' },:input_html => {:maxlength => 140, :size => 140, :style=> 'width: 950px;'} %>  
+
+
+                Recuerde que la imagen a subir debe ser de 1265x150 pixeles (anchoxaltura)
+              
+              </div>
+              <%= f.input :estado, label: "Estado visible",
+                :collection => [[true, 'Si'], [false, 'No']], 
+                          :label_method => :last, 
+                          :value_method => :first,
+                          :as => :radio_buttons, 
+                          :wrapper_class => 'inline',
+                          :checked => 
+                          @administrator_menu_nivel0_menu_nivel1.estado ? true : false %>  
+               <br />          
+
+              <%= f.input :contenido, label: "Coloque el contenido de la página", :as => :ckeditor, :input_html => { :ckeditor => {:toolbar => 'mini'} } %>
+              <div class="form-actions" align="center">
+                <%= f.button :submit, "Modificar página", :class=> "btn btn-primary" %>
+              </div>
+              <% end %>
+            </div>
+            <div align="center">
+              <%= link_to 'Regresar', administrator_menu_nivel0s_path %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

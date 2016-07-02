@@ -1,0 +1,47 @@
+<div class="clearfix mar_top10"></div>
+
+<!-- Carousel
+   ================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+   <!-- Indicators -->
+   <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+   </ol>
+   <div class="carousel-inner" role="listbox">
+    
+<%if !@carrucel == nil %>
+      <% @carrucels.each_with_index do |carrucel,i| %>
+
+      <%=puts "VALOR I "+i.to_s%> 
+      <div class="<%= i==0? 'item active' : 'item' %>">
+         <%= image_tag carrucel.imagen1, :alt => "#{carrucel.nombre}", :title => "#{carrucel.nombre}"%>
+         <div class="container">
+            <div class="carousel-caption">
+              <%if carrucel.mensaje_visible? %>
+                 <%if !carrucel.titulo_mensaje.empty?%>
+                    <h1><%=carrucel.titulo_mensaje%></h1>
+                 <%end%> 
+                 <%if !carrucel.mensaje.empty?%>                    
+                    <p><%=carrucel.mensaje%></p>
+                 <%end%>
+              <%end%>   
+            </div>
+         </div>
+      </div>
+      <%end%>
+<%end%>
+     
+   </div>
+   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+   <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+   <span class="sr-only">Previous</span>
+   </a>
+   <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+   <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+   <span class="sr-only">Next</span>
+   </a>
+</div>
+<!-- FIN CARRUCEL
+   ============================= -->

@@ -1,0 +1,69 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+   <%= render 'shared/dosFilasVistas', tituloVentana: "Carrucel de imagenes" %>
+
+    <%if !@administrator_configurations.empty?%>
+    
+    <div class="row">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <div align="center">
+              <h4 class="list-group-item-heading">Carrucel de imagenes</h4>
+            </div>
+          </a>
+        </div>
+        <div  align="right">
+          <%= button_to "Agregar imagen al carrucel", new_administrator_configuration_path, :method => "get", :class=> "btn btn-primary" %>
+        </div>
+        <br />
+        <% @administrator_configurations.each do |carrucel| %>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><%=image_tag carrucel.imagen1, alt: "#{carrucel.nombre}", height: '106', width: '200' %></a>
+                <div class="pull-right">
+                  
+                  <div class="controls">
+                    <%=link_to edit_administrator_configuration_path(carrucel),
+                    title: 'Actualizar la imagen',
+                     'data-toggle' => 'tooltip',
+                     'data-placement' => 'right' do %>
+                    <span class="fa fa-fw fa-pencil"></span>
+                    <%end%>
+                    <%=link_to  administrator_configuration_path(carrucel), method: :delete, 
+                    title: 'Eliminar la imagen',
+                     'data-toggle' => 'tooltip',
+                     'data-placement' => 'right',
+                     data: { confirm: 'Esta seguro que desea eliminar la imagen del carrucel?' }  do %>
+                    <span class="fa fa-fw fa-trash-o"></span>
+                    <%end%>
+                  
+                  </div>
+                </div>
+              </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse out">
+             
+            </div>
+          </div>
+        </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+  <% end %>
+  <!-- /.row -->
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6" align="right">
+      <%= button_to "Agregar imagen al carrucel", new_administrator_configuration_path, :method => "get", :class=> "btn btn-primary" %>
+    </div>
+    <div class="col-lg-3"></div>
+  </div>
+</div>
+<!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->

@@ -1,0 +1,82 @@
+
+    <div id="page-wrapper">
+      <div class="container-fluid">
+<%= render 'shared/dosFilasVistas', tituloVentana: "Modificar datos personales" %>
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-5">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">
+                    Modificar datos personales 
+                  </h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="list-group">
+                  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
+<%#= simple_form_for(@usuario, :url => { :action => "update_password" } ) do |f| %>
+
+                    <%#= f.error_notification %>
+                    <%= f.input :reset_password_token, as: :hidden %>
+                    <%= f.full_error :reset_password_token %>
+                    <% if @usuario.errors.any? %>
+                    <div class="alert alert-danger">
+                    <div class="error_explanation">
+                      <ul>
+                        <% resource.errors.each do |attr,msg| %>
+                        <li><%= "#{msg}" if @usuario.errors[attr].first == msg %> </li>
+                       <% end %>
+                    
+                      </ul>
+                    
+                    </div>
+                  </div>
+                  <% end %>
+
+                   <%= f.input :nombre, label: 'Nombre', placeholder: "Nombre completo", wrapper_html: { class: 'username' } %>
+                 
+                  <%= f.input :apellido, label: 'Apellido', placeholder: "Apellido completo", wrapper_html: { class: 'username' } %>
+                  
+                  <%= f.input :telefono_habitacion, label: 'Teléfono de habitación',  wrapper_html: { class: 'username' } %>
+                   
+                   <%= f.input :telefono_trabajo, label: 'Teléfono de oficina',  wrapper_html: { class: 'username' } %>
+
+                   <%= f.input :celular1, label: 'Celular', wrapper_html: { class: 'username' } %>
+                  
+                  <%= f.input :celular2, label: 'Celular 2',wrapper_html: { class: 'username' } %>
+                  <%= f.input :email2, label: 'Correo Electrónico alternativo', placeholder: "usuario@dominio.com",wrapper_html: { class: 'username' } %>
+                  
+                  <div class="form-actions" align="center">
+          <%= f.button :submit, "Modificar datos personales" , :class=> "btn btn-primary" %>
+        </div>
+                 
+
+<!--<h3>Cancel my account</h3>
+<p>
+Unhappy?
+<%#= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
+</p><%#= link_to "Back", :back %>
+-->
+<% end %>
+
+<%= render "devise/shared/links" %>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3"></div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div><!-- /#page-wrapper -->
+        </div>
+
+       
+      </div>
+    </div>
+  </body>
+ 
+</html>

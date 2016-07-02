@@ -1,0 +1,50 @@
+<%= simple_form_for(@administrator_configuration) do |f| %>
+
+
+<%#= simple_form_for(@administrator_configuration, :html => { :multipart => true }) do |f| %>
+
+<% if @administrator_configuration.errors.any? %>
+<div class="alert alert-danger">
+   <div class="error_explanation">
+      <ul>
+         <% @administrator_configuration.errors.each do |attr,msg| %>
+         <li><%= "#{msg}" if @administrator_configuration.errors[attr].first == msg %> </li>
+         <% end %>                      
+      </ul>
+   </div>
+</div>
+<% end %>
+
+<%= f.input :nombre, label: 'Nombre', placeholder: "Coloque un nombre descriptivo a la imagen", wrapper_html: { class: 'username' } %>   
+
+<%= f.input :titulo_mensaje, label: 'Titulo del mensaje', placeholder: "Coloque un titulo descriptivo de la imagen que aperecerá sobre la imágen", wrapper_html: { class: 'username' } %>   
+
+<%= f.input :mensaje, label: 'Mensaje', placeholder: "Coloque un mensaje corto", wrapper_html: { class: 'username' } %>
+
+<%= f.input :mensaje_visible, label: "El Mensaje estára visible sobre la imagen del carrucel", as: :boolean, checked_value: true %>
+
+<%#= f.input :mensaje_visible, label: "el Mensaje estára visible?", :as => :radio_buttons, :item_wrapper_class => 'inline' %>
+
+<%#=puts current_page?(action: action_name)%>
+<%#=puts action_name%>
+<%#=puts params[:action]%>
+
+<% if action_name =="edit" or action_name =="update" %>
+	<strong> Imagen actual: </strong>
+	<%=image_tag @carrucel.imagen1 %> <br />
+<%end%> 
+
+<%#=  f.input :imagen1, :as => :file, :label => "Subir Imagen 1:", :accept => "image/jpg" %>
+
+ <%= f.input :imagen1,  label: 'Imagen a mostrar en el carrucel:',  placeholder: "Coloque aquí la ruta donde se encuentra la imagen", wrapper_html: { class: 'username' },:input_html => {:maxlength => 150} %>  
+
+
+<div class="alert alert-info  fade in">
+  Recuerde que la imagen debe ser de 1265x455 pixeles (ancho x alto)
+</div>
+	
+                  
+<div class="form-actions" align="center">
+   <%= f.button :submit, labelBoton, :class=> "btn btn-primary" %>
+</div>
+<% end %>

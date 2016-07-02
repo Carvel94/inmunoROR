@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alerasin: Alergia - Asma - Inmunolog&iacute;a</title>
+  <%= javascript_include_tag "administrator" %>
+  <%= stylesheet_link_tag 'administrator', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico', :rel => 'favicon.ico', :type => 'image/png', :sizes => '144x144' %>
+
+   <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <!-- ######### CSS STYLES ######### -->
+</head>
+<body>
+   <%#if current_usuario %>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <%= render 'shared/menu_administracion' %>
+      <%= yield %>
+    <%#else%>
+    <%#redirect_to :controller => "SessionsController", :action =>"destroy", '_method' =>:delete%>
+      <%# controller.redirect_to destroy_usuario_session_path, method: :delete %> 
+      <%#= link_to 'Login', new_usuario_session_path %>
+  <%#end%>
+
+</div>   <!-- /#wrapper -->
+</body>
+</html>

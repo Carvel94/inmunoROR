@@ -1,0 +1,17 @@
+<div class="navbar-header">               
+           <%= image_tag attachments['logo.png'].url %>
+           <a class="navbar-brand" href="index.html"></a>
+        </div>
+        
+<h1> Bienvenido: <%=@contacto.nombre%> </h1> 
+<h3> Usted nos envío el siguiente mensaje: </h3>
+ <%= @contacto.mensaje%>
+
+
+<h3> Respuesta del doctor a su inquietud: </h3>
+<%= @contacto.respuesta%>
+
+<br />
+<br />
+
+cualquier duda puede volver hacer otra pregunta a traves del siguiente enlace: <%= link_to 'Contacto', new_contacto_url %>

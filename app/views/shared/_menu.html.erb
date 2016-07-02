@@ -1,0 +1,51 @@
+
+<div class="menu_main">
+    <div class="joosa top_links">Para citas llamar al: <strong>(0212) 999-01-53 ó (0212) 991-46-20</strong>
+</div>
+           
+<nav id="access" class="access" role="navigation">
+  <div id="menu" class="menu">
+    <ul id="tiny">
+      <li><%= link_to "Inicio", root_path %></li>  
+
+<% if usuario_signed_in? %>
+  <%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete, :class => 'btn btn-primary'%>
+<%else%>
+  <% @opcionesMenu.each do |opcion|%>
+	<li>
+
+<!--
+<li>
+<a href="#">Qué es <br>la Alergia? 
+<i class="fa fa-angle-down"></i>
+</a>
+-->
+
+    <%if @opcionesSubMenu[opcion.enlace].length ==0 %>
+       <%=link_to opcion.titulo.html_safe, "#" %>
+    <%else%>
+       <%= link_to((opcion.titulo.html_safe + content_tag(:i, "", :class => "fa fa-angle-down")).html_safe,
+             "#") %>
+        <ul>
+            <%@opcionesSubMenu[opcion.enlace].each do |enlace|%>
+              <%if enlace.estado%> 
+                <li>                    
+                  <%=link_to enlace.titulo.html_safe, contenido_path(enlace.id)%> 
+                </li>
+              <%end%>
+            <%end%>
+        </ul>                           
+    <%end%>
+  </li>
+<%end%>
+
+
+  <li><%=link_to "Ingresar", new_usuario_session_path  %></li>
+  <li><%=link_to "Contacto", new_contacto_path  %></li>
+
+<%end%> 
+        </ul>
+
+    </div>
+</nav>
+</div>

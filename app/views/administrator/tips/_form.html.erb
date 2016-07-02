@@ -1,0 +1,22 @@
+<%=simple_form_for(@tip, url: (@tip.new_record? ? administrator_tips_path : administrator_tip_path(@tip)))do |f| %>
+               <%#= f.error_notification %>
+                      <% if @tip.errors.any? %>
+                      <div class="alert alert-danger">
+                      <div class="error_explanation">
+                        <ul>
+                          <% @tip.errors.each do |attr,msg| %>
+                          <li><%= "#{msg}" if @tip.errors[attr].first == msg %> </li>
+                         <% end %>
+                        </ul>                     
+                      </div>
+                    </div>
+                    <% end %>
+             <%= f.input :titulo, label: 'Título', placeholder: "Coloque el título del tip de alimentación", wrapper_html: { class: 'username' } %> 
+              <%= f.input :contenido, as: :text, label: 'Contenido', placeholder: "Coloque el contenido del tip de alimentación", :input_html => {:rows => 10} %> 
+
+             <%= f.input :tags, label: 'Palabras clave', placeholder: "Coloque las palabras claves separadas por una coma (,)" %> 
+
+               <div class="form-actions" align="center">
+                    <%= f.button :submit, labelBoton, :class=> "btn btn-primary" %>
+               </div>
+              <% end %>

@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alerasin: Alergia - Asma - Inmunolog&iacute;a</title>
+  <%= javascript_include_tag "administrator" %>
+  <%= stylesheet_link_tag 'administrator', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico', :rel => 'favicon.ico', :type => 'image/png', :sizes => '144x144' %>
+
+   <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <!-- ######### CSS STYLES ######### -->
+</head>
+<body>
+    <div id="wrapper">
+        <%= render 'shared/menu_paciente' %>
+      <%= yield %>
+    </div>   <!-- /#wrapper -->
+</body>
+</html>

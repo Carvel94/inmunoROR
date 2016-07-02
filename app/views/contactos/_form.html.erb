@@ -1,0 +1,53 @@
+<div class="container-fluid">
+ <div class="panel-body">
+<div class="list-group">
+
+<%=simple_form_for(@contacto, url: (contactos_path), html: { class: 'form-horizontal' }) do |f| %>
+
+<%= f.error_notification %>
+
+<% if @contacto.errors.any? %>
+	
+<% end %>
+
+<div class="form-group">
+<label class="control-label col-xs-3" >*Nombre</label>
+<div class="col-xs-9">
+<%= f.input :nombre, label: false, placeholder: "Coloque su nombre completo", wrapper_html: { class: 'username' } %>	
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-xs-3" >*Teléfono local</label>
+<div class="col-xs-3">
+<%= f.input :telefono_local, label: false, placeholder: "Coloque el número de un teléfono local o fijo", wrapper_html: { class: 'username' } %>	
+</div>
+
+<label class="control-label col-xs-3" >*Celular</label>
+<div class="col-xs-3">
+<%= f.input :telefono_celular, label: false, placeholder: "Coloque uel número de un teléfono celular", wrapper_html: { class: 'username' } %>	
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-xs-3" >E-mail</label>
+<div class="col-md-9">
+<%= f.input :email, label: false, placeholder: "Coloque su dirección de correo electrónico", wrapper_html: { class: 'username' } %>	
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-xs-3" >*Mensaje</label>
+<div class="col-xs-9">
+<%= f.input :mensaje, as: :text, label: false, placeholder: "Coloque su consulta", :input_html => {:style=> 'width: 100%;', :rows =>5} %>	
+</div>
+</div>
+
+<div class="form-actions" align="center">
+   <%= f.button :submit, 'Enviar solicitud de cita', :class=> "btn-primary" %>
+</div>
+<% end %>
+
+</div>
+</div>
+</div>

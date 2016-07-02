@@ -1,0 +1,194 @@
+<style type="text/css">  
+   .form-group {
+   margin-bottom: 10px;
+   }
+</style>
+
+
+
+<div id="page-wrapper">
+      <div class="container-fluid">
+
+
+<%if @paciente.blank?%>
+      <%= render 'shared/dosFilasVistas', tituloVentana: "Modificar datos personales" %>
+
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-5">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">Modificar datos personales</h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item">Nombre:
+                  <%=current_usuario.nombre%>
+                  </li>
+                  <li class="list-group-item">Apellido:
+                  <%=current_usuario.apellido%>
+                  </li>
+                  <li class="list-group-item">Telefono Habitación:
+                  <%=current_usuario.telefono_habitacion%>
+                  </li>
+                  <li class="list-group-item">Telefono trabajo:
+                  <%=current_usuario.telefono_trabajo%>
+                  </li>
+                  <li class="list-group-item">Celular 1:
+                  <%= current_usuario.celular1%>
+                  </li>
+                  <li class="list-group-item">Celular 2:
+                  <%= current_usuario.celular2%>
+                  </li>
+                  <li class="list-group-item">Correo alternativo:
+                  <%= current_usuario.email2%>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3"></div><!-- /.row -->
+
+
+
+        <div class="row">
+           <div class="col-sm-3"></div>
+          <div class="col-sm-5">
+            <%= link_to 'Modificar', edit_usuario_registration_path %> |
+            <%=link_to 'Regresar', admin_path %>
+          </div>
+          <div class="col-sm-3"></div>
+        </div><!-- /.row -->
+
+<%else%>
+
+
+
+
+
+<div id="page-wrapper">
+      <div class="container-fluid">
+      <%= render 'shared/dosFilasVistas', tituloVentana: "Paciente" %>
+        <div class="row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-8">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">Paciente</h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                  <table class="table table-condensed">
+                  <tr>
+                    <td><strong>Historia:</strong></td>
+                    <td><%=@paciente.historia%></td>
+                    <td><strong>Nombre de usuario:</strong></td>
+                    <td><%=@paciente.username%></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Nombres:</strong></td>
+                    <td><%=@paciente.nombre%></td>
+                    <td><strong>apellidos:</strong></td>
+                    <td><%=@paciente.apellido%></td>                    
+                  </tr>
+                  <tr>
+                    <td><strong>C.I.:</strong></td>
+                    <td><%=@paciente.cedula%></td>
+                    <td><strong>Fecha de nacimiento:</strong></td>
+                    <td><%=@paciente.fecha_nacimiento%></td>                    
+                  </tr>
+                  <tr>
+                    <td><strong>Telefono Hab.:</strong></td>
+                    <td><%=@paciente.telefono_habitacion%></td>
+                    <td><strong>Telefono Oficina:</strong></td>
+                    <td><%=@paciente.telefono_trabajo%></td>                    
+                  </tr>
+                  <tr>
+                    <td><strong>Celular 1:</strong></td>
+                    <td><%=@paciente.celular1%></td>
+                    <td><strong>Celular 2:</strong></td>
+                    <td><%=@paciente.celular2%></td>                    
+                  </tr>
+                  <tr>
+                    <td><strong>E-mail principal:</strong></td>
+                    <td><%=@paciente.email%></td>
+                    <td><strong>E-mail alternativo:</strong></td>
+                    <td><%=@paciente.email2%></td>                    
+                  </tr>
+                  <tr>
+                    <td><strong>Celular 1:</strong></td>
+                    <td><%=@paciente.celular1%></td>
+                    <td><strong>Celular 2:</strong></td>
+                    <td><%=@paciente.celular2%></td>                    
+                  </tr>
+                  <tr class="success">
+                    <td  colspan = "4"><strong>Pruebas alérgicas:</strong>
+                    <%if @paciente.fecha_pruebas != nil%>                      
+                      <%=@paciente.fecha_pruebas%>
+                    <%else%>
+                      no se realizaron las pruebas alérgicas
+                    <%end%>  
+                    </td>
+                  </tr>
+                  <%if @paciente.fecha_pruebas != nil%> 
+                      <tr>
+                        <td><strong>Fecha de realización:</strong></td>
+                        <td colspan = "3">
+                          <%=@paciente.fecha_pruebas%>
+                        </td>
+                      </tr>
+                      
+                      <tr>
+                        <td><strong>AVA:</strong></td>
+                        <td><%=@paciente.ava%></td>
+                        <td><strong>CUC:</strong></td>
+                        <td><%=@paciente.cuc%></td>                    
+                      </tr>  
+                      <tr>
+                        <td><strong>HONG:</strong></td>
+                        <td><%=@paciente.hong%></td>
+                        <td><strong>BERM:</strong></td>
+                        <td><%=@paciente.berm%></td>                    
+                      </tr>
+                      <tr>
+                        <td><strong>JOHN:</strong></td>
+                        <td><%=@paciente.john%></td>
+                        <td><strong>ASP:</strong></td>
+                        <td><%=@paciente.asp%></td>                    
+                      </tr>                                                       <tr>
+                        <td><strong>BLOM:</strong></td>
+                        <td colspan = "3"><%=@paciente.blom%></td>
+                      </tr> 
+                  <%end%>                    
+                  </table>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+         <div class="col-sm-3"></div>  
+        </div>
+       <!-- /.row -->
+
+        <div class="row">
+           <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+            <%= link_to 'Modificar', edit_paciente_registration_path(@paciente) %> |
+            <%=link_to 'Regresar', usuarios_list_path%>
+          </div>
+          <div class="col-sm-3"></div>
+        </div><!-- /.row -->
+
+<%end%>
+
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /#page-wrapper -->    

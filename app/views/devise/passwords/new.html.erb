@@ -1,0 +1,81 @@
+<h2>Olvido su password</h2>
+
+<div class="clearfix"></div>
+
+<div class="page_title">
+	<div class="container">
+		<div class="title"><h1>Olvido su password?</h1></div>
+        <div class="pagenation">&nbsp;
+		</div>
+	</div><!-- end page title --> 
+
+<div class="container">
+ <div class="content_fullwidth2">
+  <div class="one_half_center">
+   <div class="framed-box">
+    <div class="framed-box-wrap">
+     <div class="pricing-title">
+      <h3>Recuperación de datos de acceso</h3>
+     </div>
+    <div class="pricing-text-list">
+
+<%= simple_form_for(resource, as: resource_name,:url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+
+
+<%= f.error_notification %>
+
+<% if notice %>
+<div class="success">
+<div class="message-box-wrap2"> 
+  <%= notice %>
+  </div>
+</div>
+<% end %>
+
+
+<% if alert %>
+<div class="error">
+<div class="message-box-wrap2"> 
+  <%= alert %>
+  </div>
+</div>
+<% end %>
+
+
+<% if @usuario.errors.any? %>
+<div class="alert alert-danger">
+  <ul>
+   <% @usuario.errors.each do |key, message| %>
+   <%if key.to_s == "email"%>
+      <li><%= message %></li>
+   <%end%>
+  <%end%>
+  </ul>
+</div>
+ <br />
+<% end %>
+
+ <div class="form-group">
+  	 <%= f.label "Email:",:class=>"control-label col-md-4" %>
+  		<div class="input-group col-md-7">
+      <%= f.text_field :email, required:true, :class=>"form-control",:placeholder=>"Dirección de correo electrónico", autofocus: true %>      
+    </div>
+  </div>
+
+  <div class="form-actions" align="center">
+    <%= f.button :submit, "Recibir instrucciones para restablecer la contraseña", :class=> "btn btn-primary" %>
+</div>
+ 
+<br />
+<% end %>
+
+<%= render "devise/shared/links" %>
+						
+					</div>
+				</div>
+				
+			</div>
+		</div><!-- end section -->
+   </div><!-- end content area -->
+
+<div class="clearfix mar_top5"></div>

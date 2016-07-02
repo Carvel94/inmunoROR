@@ -1,0 +1,192 @@
+<style type="text/css">  
+   .form-group {
+   margin-bottom: 10px;
+   }
+</style>
+
+<div id="page-wrapper">
+   <div class="container-fluid">
+      <%= render 'shared/dosFilasVistas', tituloVentana: "Nuevo paciente" %>
+      <div class="row" style= "margin-top:25px">
+         <div class="col-lg-2"></div>
+         <div class="col-lg-8">
+            <div class="panel panel-primary">
+               <div class="panel-heading">
+                  <h3 class="panel-title"></h3>
+                  <div style="text-align: center">
+                     <h3 class="panel-title">Registrar nuevo paciente</h3>
+                  </div>
+               </div>
+               <div class="panel-body">
+                  <div class="list-group">
+                     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-horizontal' }) do |f| %>
+                    
+                   <%= f.error_notification %>
+    
+                     <div class="form-group">
+                       <label class="control-label col-md-2" >Paciente N.:</label>
+                        <div class="col-md-1">
+                           <%= f.input :numero_excel, label: false, :required => true, readonly: true, input_html: { value: @numero_paciente } %>
+                        </div>
+                        
+                         <div class="col-md-2">
+                         </div>
+
+                       <label class="control-label col-md-3" >Nombre de usuario:</label>
+                        <div class="col-md-2">
+                           <%= f.input :username, label: false, :required => true, readonly: true, placeholder: "Username"%>
+                        </div>
+                        <div class="col-md-1"></div>
+
+
+                      
+                     </div>
+
+                    <div class="form-group">  
+                    <label class="control-label col-md-2" ><abbr title="required">*</abbr> Historia N.:</label>
+                        <div class="col-md-3">
+                           <%= f.input :historia, label: false, placeholder: "Número de historia",wrapper_html: { class: 'username' },:input_html => {:maxlength => 7, :size => 7, :style=> 'width: 80px;'}  %>
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="control-label col-md-2" ><abbr title="required">*</abbr> Nombres:</label>
+                        <div class="col-md-3">
+                           <%= f.input :nombre, label: false, :required => true, placeholder: "Coloque el(los) nombre(s)"%>	
+                        </div>
+                        <label class="control-label col-md-3"><abbr title="required">*</abbr> Apellidos:</label>
+                        <div class="col-md-3">
+                           <%= f.input :apellido, label: false, :required => true, placeholder: "Coloque el(los) apellidos(s)"%>	
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="control-label col-md-2">C.I.:</label>
+                        <div class="col-md-3">
+                           <%= f.input :cedula, label: false, placeholder: "Número de cédula" %>
+                        </div>
+
+                        <label class="string optional control-label col-md-3"><abbr title="required">*</abbr> Fecha Nacimiento:</label>
+                        <div class='input-group date col-md-3' id='datetimepicker1'>
+                           <input class="string optional form-control"  type="text" name="usuario[fecha_nacimiento]" id="usuario_fecha_nacimiento" />
+                           <span class="input-group-addon">
+                           <i class="fa fa-calendar"></i>
+                           </span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-2"><abbr title="required">*</abbr> Teléfono Hab:</label>
+                        <div class="col-md-3">
+                           <%= f.input :telefono_habitacion, label:false, placeholder: "Teléfono de habitación", wrapper_html: { class: 'username' } %>
+                        </div>
+                        <label class="control-label col-md-3">Teléfono Oficina:</label>
+                        <div class="col-md-3">
+                           <%= f.input :telefono_trabajo, label: false, placeholder: "Teléfono de oficina", wrapper_html: { class: 'username' } %>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-2"><abbr title="required">*</abbr> Celular 1:</label>
+                        <div class="col-md-3">
+                           <%= f.input :celular1, label: false, placeholder: "Teléfono celular" %>
+                        </div>
+                        <label class="control-label col-md-3">Celular 2:</label>
+                        <div class="col-md-3">					                  
+                           <%= f.input :celular2, label: false, placeholder: "Teléfono celular" %>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-2"><abbr title="required">*</abbr> E-mail:</label>
+                        <div class="col-md-3">					
+                           <%= f.input :email, label: false, placeholder: "usuario@dominio.com" %>
+                        </div>
+                        <label class="control-label col-md-3"><abbr title="required">*</abbr> Confirmación E-mail:</label>
+                        <div class="col-md-3">						                  
+                           <%= f.input :email_confirmation, label: false, placeholder: "usuario@dominio.com"%>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-2">E-mail 2:</label>
+                        <div class="col-md-3">					
+                           <%= f.input :email2, label: false, placeholder: "usuario@dominio.com"%>
+                        </div>
+                        <label class="control-label col-md-3">Confirmación E-mail 2:</label>
+                        <div class="col-md-3">	           
+                           <%= f.input :email2_confirmation, label: false, placeholder: "usuario@dominio.com" %>
+                        </div>
+                     </div>
+
+ 
+
+<%= f.button :button, type: :button, id: "botonPruebas", class: 'btn btn-success' do %>
+<span class="fa fa-stethoscope "></span> 
+Agregar datos de pruebas Alérgicas
+<% end %>
+
+<div id="pruebas" style="display:none">
+	<br />
+  <div class="form-group">
+	 <label class="string optional control-label col-md-3">Fecha de las pruebas:</label>
+	   <div class='input-group date col-md-3' id='datetimepicker2'>
+	   <input class="string optional form-control"  type="text" name="usuario[fecha_pruebas]" id="usuario_fecha_pruebas" />
+	   <span class="input-group-addon">
+	   <i class="fa fa-calendar"></i>
+	   </span>
+	   </div>
+<br />
+	</div>
+
+  <div class="form-group">
+    <label class="control-label col-md-2">AVA:</label>
+      <div class="col-md-1">	           
+      <%= f.input :ava, label: false, as: :string %>
+    </div>
+    <label class="control-label col-md-3">CUC:</label>
+      <div class="col-md-1">	           
+      <%= f.input :cuc, label: false, as: :string %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-2">HONG:</label>
+      <div class="col-md-1">	           
+      <%= f.input :hong, label: false, as: :string %>
+    </div>
+    <label class="control-label col-md-3">BERM:</label>
+      <div class="col-md-1">	           
+      <%= f.input :berm, label: false, as: :string %>
+    </div>
+   </div>
+   <div class="form-group">
+    <label class="control-label col-md-2">JOHN:</label>
+      <div class="col-md-1">	           
+      <%= f.input :john, label: false, as: :string %>
+    </div>
+    <label class="control-label col-md-3">ASP:</label>
+      <div class="col-md-1">	           
+      <%= f.input :asp, label: false, as: :string %>
+    </div>
+   </div>
+   <div class="form-group">
+    <label class="control-label col-md-2">BLOM:</label>
+      <div class="col-md-1">	           
+      <%= f.input :blom, label: false, as: :string %>
+    </div>
+	</div>
+</div>
+
+  <div class="form-actions" align="center">
+    <%= f.button :submit, "Agregar", :class=> "btn btn-primary" %>
+  </div>
+  </div>
+<% end %>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-2"></div>
+         <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+   </div>
+   <!-- /#page-wrapper -->
+</div>
+
+

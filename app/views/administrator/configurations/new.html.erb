@@ -1,0 +1,56 @@
+
+
+
+    <div id="page-wrapper">
+      <div class="container-fluid">
+      <%= render 'shared/dosFilasVistas', tituloVentana: "Carrucel de imagenes" %>
+
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">
+                    Agregar Imagenes al Carrucel 
+                  </h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="list-group">
+
+                <%if @cantidad >= 5 %>
+
+                  <div class="row">
+                      <div class="col-lg-12">
+                        <div class="alert alert-danger fade in">
+                        
+                          <strong>Ha completado el máximo número de imagenes para el carrucel que son cinco (5). <br />Para colocar una imagen nueva, puede modificar o eliminar alguna imagen existente</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                <%else%>
+
+                    <%=render 'form', labelBoton: "Agregar" %>
+
+                 <%end%>    
+                    </div>
+                       <div align="center">
+                  <%= link_to 'Regresar', administrator_configurations_path %>
+                </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3"></div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div><!-- /#page-wrapper -->
+        </div>
+
+       
+      </div>
+    </div>
+  </body>
+ 
+</html>

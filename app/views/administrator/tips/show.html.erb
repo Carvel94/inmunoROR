@@ -1,0 +1,55 @@
+   <div id="page-wrapper">
+      <div class="container-fluid">
+
+  <%= render 'shared/dosFilasVistas', tituloVentana: "Alergia a alimentos" %>
+
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-5">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">
+                    Pregunta
+                  </h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item"><strong>Título:</strong>
+                  <%=@tip.titulo%>
+                  </li>
+                  <li class="list-group-item"><strong>Contenido:</strong>
+                  <%=@tip.contenido%>
+                  </li>
+                  <li class="list-group-item"><strong>Palabras clave:</strong>
+                  <%=@tip.tags%>
+                  </li>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+         <div class="col-lg-3"></div>  
+        </div>
+       <!-- /.row -->
+
+        <div class="row">
+           <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <div align="center">
+            <%= link_to 'Modificar', edit_administrator_tip_path(@tip) %> |
+            <%= link_to 'Regresar', administrator_tips_path %>
+          </div>
+        </div>
+          <div class="col-lg-3"></div>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /#page-wrapper -->
+
+
+        
+
+

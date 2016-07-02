@@ -1,0 +1,72 @@
+<div id="page-wrapper">
+  <div class="container-fluid">
+    <%= render 'shared/dosFilasVistas',  tituloVentana: "Alergia a alimentos"%>
+    <%if @tips.empty?%>
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8" align="center">
+        <%= button_to "Agregar Tip", new_administrator_tip_path, :method => "get", :class=> "btn btn-primary" %>
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
+    <%else%>
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <div align="center">
+              <h4 class="list-group-item-heading">Tips de alimentación</h4>
+            </div>
+          </a>
+        </div>
+        <div  align="right">
+          <%= button_to "Agregar tip", new_administrator_tip_path, :method => "get", :class=> "btn btn-primary" %>
+        </div>
+        <br />
+        <% @tips.each_with_index do |tip,i| %>
+        <div class="panel-group" id="accordion-<%=i.to_s%>">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><%=tip.titulo%></a>
+                <div class="pull-right">
+                  <div class="controls">
+                    <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><span class="fa fa-fw fa-search"></span></a>
+                    <%=link_to edit_administrator_tip_path(tip),
+                      title: 'Actualizar el tip',
+                       'data-toggle' => 'tooltip',
+                       'data-placement' => 'right' do %>
+                    <span class="fa fa-fw fa-pencil"></span>
+                    <%end%>
+                    <%=link_to  administrator_tip_path(tip), method: :delete,
+                      title: 'Eliminar el tip',
+                       'data-toggle' => 'tooltip',
+                       'data-placement' => 'right', data: { confirm: 'Esta seguro que desea eliminar el tip de alimentación?' }  do %>
+                    <span class="fa fa-fw fa-trash-o"></span>
+                    <%end%>
+                  </div>
+                </div>
+              </h4>
+            </div>
+            <div id="collapse1-<%=i.to_s%>" class="panel-collapse collapse out">
+              <div class="panel-body"><%=tip.contenido%></div>
+            </div>
+          </div>
+        </div>
+        <%end%>
+      </div>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8" align="right">
+      <%= button_to "Agregar Tip", new_administrator_tip_path, :method => "get", :class=> "btn btn-primary" %>
+    </div>
+    <div class="col-lg-2"></div>
+  </div>
+  <% end %>
+</div>
+<!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->

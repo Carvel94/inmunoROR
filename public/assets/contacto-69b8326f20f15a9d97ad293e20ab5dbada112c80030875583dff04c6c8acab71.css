@@ -1,0 +1,21 @@
+
+.form-group {
+    margin-bottom:8px;
+}
+
+.h3 {margin-bottom: 10px;}
+
+.container-fluid {
+    padding-top: 0px;
+    margin-top: -5px;}
+
+.panel-body {
+    padding: 0px 15px 15px 15px;
+}
+
+.alert {
+    padding: 1px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}

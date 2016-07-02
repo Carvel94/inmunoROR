@@ -1,0 +1,26 @@
+<div id="page-wrapper">
+<div class="container-fluid">
+   <%= render 'shared/dosFilasVistas', tituloVentana: "Agregar página a la opción: "+ (formatearOpcionMenu @opcionMenu.titulo) %>
+   <div class="row">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-10">
+         <div class="panel panel-primary">
+            <div class="panel-heading">
+               <h3 class="panel-title"></h3>
+               <div style="text-align: center">
+                  <h3 class="panel-title">Agregar Página </h3>
+               </div>
+            </div>
+            <div class="panel-body">
+               <div class="list-group">
+                  <%=render 'form', labelBoton: "Agregar nueva página" %>
+               </div>
+               <div align="center">
+                <%= link_to 'Regresar', administrator_menu_nivel0s_path %>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-lg-1"></div>
+   </div>
+</div>

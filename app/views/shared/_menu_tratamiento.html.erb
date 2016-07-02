@@ -1,0 +1,129 @@
+ <%if current_usuario %>       
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="navbar-header">               
+           <%=image_tag "logo.png", class: "logo"%>
+           <a class="navbar-brand" href="index.html"></a>
+        </div>
+          
+        <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+
+<!-- ADMINISTRACIÓN INICIO -->
+<li class="dropdown">
+    <%=link_to admin_path do %>
+        <i class="fa fa-home"></i>&nbsp;Inicio
+    <%end%>
+ </li> 
+<!-- FIN ADMINISTRACIÓN INICIO -->
+
+
+<!-- ADMINISTRACIÓN USUARIOS -->
+<li class="dropdown">
+     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;Administrar pacientes <b class="caret"></b></a>
+     <ul class="dropdown-menu alert-dropdown">
+		  <li>
+  		  <%=link_to "Agregar Paciente", new_usuario_registration_path %>
+      </li>
+
+    	<li>
+       <%=link_to "Actualización de datos", buscar_administrator_pacientes_path%>
+      </li>
+
+      <li>      
+      <%=link_to "Registro de pruebas alergicas", new_usuario_registration_path %>
+    	</li>
+    	
+      <li>
+        <%=link_to "Listado de pacientes", usuarios_list_path%>
+      </li>
+
+ </ul>   	
+</li> 
+<!-- FIN ADMINISTRACIÓN USUARIOS -->
+
+<!-- ADMINISTRACIÓN CONTROL DE VACUNAS -->
+<li class="dropdown">
+     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-magic"></i>&nbsp;Vacunas <b class="caret"></b></a>
+     <ul class="dropdown-menu alert-dropdown">
+		<li>
+      Registro de pago de vacuna
+    	</li>
+      <li>
+      Pagos realizados
+    	</li>	
+    	<li>
+      Solicitud vacuna
+    	</li>
+    	<li>
+      Control de vacunas entregadas
+    	</li>
+    	<li>
+      Eliminación de vacunas preparadas 
+    	</li>
+    	<li>
+      Vacunas solicitadas
+    	</li>
+    	<li>
+      Vacunas preparadas (NO ENTREGADAS)
+    	</li>
+      <li>
+      Vacunas entregadas 
+    	</li>	
+
+ </ul>   	
+</li> 
+
+<!-- FIN ADMINISTRACIÓN CONTROL DE VACUNAS -->
+
+<!-- ADMINISTRACIÓN CONTROL DE ARCHIVOS -->
+
+<li class="dropdown">
+     <%=link_to administrator_tips_path do %>
+        <i class="fa fa-files-o"></i>&nbsp;&nbsp;Archivos </a>
+    <%end%>
+</li> 
+<!-- FIN ADMINISTRACIÓN CONTROL DE ARCHIVOS -->
+
+
+<!-- FIN ADMINISTRACIÓN CARRUSEL -->
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i>&nbsp;Alertas <b class="caret"></b></a>
+</li>
+
+
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
+      <%puts "currento2"%>
+    <% if current_usuario.rol == 1 || current_usuario.rol == 2%>
+		Dr(a).
+	<%end%>
+		<%=current_usuario.nombre + "  "+ current_usuario.apellido%>		
+    <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+	    <li>
+	        <%=link_to edit_usuario_registration_path do %>
+	        	<i class="fa fa-fw fa-user-md"></i>Datos personales
+	    	<%end%>
+	    </li>
+	    <li>
+	        <%=link_to edit_usuario_password_path do %>
+	        	<i class="fa fa-fw fa-key"></i>Datos de acceso
+	    	<%end%>
+	    </li>
+	    <li class="divider"></li>
+	    <!--<li>
+	    	<a href="#"><i class="fa fa-fw fa-gears"></i> Configuración</a>
+	    </li>
+	    <li class="divider"></li>-->
+	    <li>
+	        <%= link_to "Cerrar sesion", destroy_usuario_session_path, method: :delete, :class => 'btn btn-primary'%>
+	    </li>
+    </ul>
+</li>
+</ul>
+</nav>
+<%else%>
+Usted no está logeado
+<%end%>
+   

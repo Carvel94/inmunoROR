@@ -1,0 +1,102 @@
+<div id="page-wrapper">
+   <div class="container-fluid">
+   <%= render 'shared/dosFilasVistaShow', tituloVentana: "Contactos por responder"%>
+
+
+      <div class="row">
+         <div class="col-lg-2"></div>
+         <div class="col-lg-8">
+            <div class="list-group">
+               <a href="#" class="list-group-item active">
+                  <div align="center">
+                     <h4 class="list-group-item-heading">Citas médicas solicitadas</h4>
+                  </div>
+               </a>
+            </div>
+   <%if !@contactos.empty?%>
+
+            <% @contactos.each_with_index do |contacto,i| %>
+            <div class="panel-group">
+               <div class="panel panel-info">
+                  <div class="panel-heading">
+                     <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>">
+                        <%#= contacto.created_at.to_s(:custom_datetime)%> | 
+                        <%= humanizarFecha contacto.created_at%>
+                        <%#=contacto.nombre%></a>
+                        <div class="pull-right">
+                           <div class="controls">
+                              <a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><span class="fa fa-fw fa-search"></span></a>
+                              <%=link_to edit_administrator_contacto_path(contacto),
+                                 title: 'Responder mensaje',
+                                  'data-toggle' => 'tooltip',
+                                  'data-placement' => 'right' do %>
+                              <span class="fa fa-fw fa-check-square-o"></span>
+                              <%end%>
+                              <%=link_to administrator_contacto_path(contacto), method: :delete, 
+                                 title: 'Eliminar mensaje',
+                                  'data-toggle' => 'tooltip',
+                                  'data-placement' => 'right',
+                                  data: { confirm: 'Esta seguro que desea eliminar la consulta enviada por el usuario?' }  do %>
+                              <span class="fa fa-fw fa-trash-o"></span>
+                              <%end%>
+                           </div>
+                        </div>
+                     </h4>
+                  </div>
+                  <div id="collapse1-<%=i.to_s%>" class="panel-collapse collapse out">
+                     <div class="panel-body">
+                        <ul class="list-group">
+                          <li class="list-group-item"><strong>Nombre del usuario:</strong>
+                              <%=contacto.nombre%>
+                           </li>
+                            <li class="list-group-item">
+                            <strong>Telefono local: </strong><%=contacto.telefono_celular%>
+                            </li>
+                            <li class="list-group-item">
+                            <strong>Telefono celular: </strong><%=contacto.telefono_celular%>
+
+
+                             </li>
+                           <li class="list-group-item"><strong>E-mail del usuario:</strong>
+                              <%=contacto.email%>
+                           </li>
+                           <li class="list-group-item"><strong>Consulta:</strong>
+                              <%=contacto.mensaje%>
+                           </li>
+                        </ul>
+                        <%=link_to "Responder", edit_administrator_contacto_path(contacto), class: 'btn btn-success'%>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <%end%>
+         </div>
+<div class="row">
+      <div class="col-lg-12">
+   <div align="center">
+      <%#= link_to "Regresar", admin_path, :class=> "btn btn-success" %>
+      <%= link_to "Regresar", admin_path%>
+
+   </div>
+  </div>
+</div>     
+<%else%>
+ <div class="row">
+      <div class="col-lg-12">
+          <div class="alert alert-warning fade in">
+            <strong>No existen más mensajes por responder</strong>       
+          </div>
+      </div>
+   <div align="center">
+      <%= link_to "Regresar", admin_path, :class=> "btn btn-success" %>
+   </div>
+</div>
+
+   <% end %>
+  </div>
+      <div class="col-lg-2"></div>
+   </div>  
+</div>
+<!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->

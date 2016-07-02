@@ -1,0 +1,61 @@
+   <div id="page-wrapper">
+      <div class="container-fluid">
+
+ <%= render 'shared/dosFilasVistas', tituloVentana: "Carrucel de imagenes" %>
+
+        
+
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <div style="text-align: center">
+                  <h3 class="panel-title">
+                    Imagen del carrucel
+                  </h3>
+                </div>
+              </div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item"><strong>Nombre:</strong>
+                  <%= @administrator_configuration.nombre %>
+                  </li>
+                  <li class="list-group-item"><strong>Título del mensaje:</strong>
+                  <%= @administrator_configuration.titulo_mensaje %>
+                  </li>
+                  <li class="list-group-item"><strong>Mensaje:</strong>
+                  <%= @administrator_configuration.mensaje %>
+                  </li>
+                   <li class="list-group-item"><strong>El mensaje está visible:</strong>
+                    <%= @administrator_configuration.mensaje_visible ? "Si" : "No"%>
+                  </li>
+                  <li class="list-group-item"><strong>Imagen:</strong>
+                  <%= image_tag @administrator_configuration.imagen1, alt: "#{@administrator_configuration.nombre}", height: '53', width: '100' %>
+                  </li>
+                  <li class="list-group-item"><strong>Cantidad de imagenes en el carrucel: </strong><%=@cantidad%>
+                  </li>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+         <div class="col-lg-3"></div>  
+        </div>
+       <!-- /.row -->
+
+        <div class="row">
+           <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <%= link_to 'Modificar', edit_administrator_configuration_path(@administrator_configuration) %> |
+            <%= link_to 'Regresar', administrator_configurations_path %>
+          </div>
+          <div class="col-lg-3"></div>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div><!-- /#page-wrapper -->
+
+
+        

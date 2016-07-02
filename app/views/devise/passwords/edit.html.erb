@@ -1,0 +1,75 @@
+ <div id="page-wrapper">
+      <div class="container-fluid">
+<%= render 'shared/dosFilasVistas', tituloVentana: "Modificar datos de acceso" %>
+
+
+<div class="row">
+   <div class="col-lg-4"></div>
+   <div class="col-lg-4">
+      <div class="panel panel-primary">
+         <div class="panel-heading">
+            <h3 class="panel-title"><div align="center">Modifique su contraseña</div></h3>
+         </div>
+         <div class="panel-body">
+            <div class="list-group">
+               <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %><%= f.error_notification %>
+               <%= f.input :reset_password_token, as: :hidden %>
+               <%= f.full_error :reset_password_token %>
+               <% if @usuario.errors.any? %>
+               <div class="alert alert-danger">
+                  <div class="error_explanation">
+                     <ul>
+                        <% @usuario.errors.full_messages.each do |message| %>
+                        <li>
+                           <% if message.match(/Password confirmation/) %>
+                           <%=message.to_s.gsub(/Password confirmation/, 'La confirmación') %>       
+                           <%else%>
+                             <% if message.match(/Current password/) %>
+                               <%= message.to_s.gsub(/Current password/, 'El password actual') %>       
+                             <%else%>
+                                <%=message%>
+                             <%end%>
+                           <%end%>
+                        </li>
+                        <% end %>
+                     </ul>
+                  </div>
+               </div>
+               <% end %>
+               <div class="field">
+    
+  </div>
+
+               <%if @usuario.errors[:password].any? %>
+               <div class="form-group has-error">
+                  <%else%>
+                  <div class="form-inputs">  
+                     <%end%> 
+                   
+                     <%= f.input :password, label: "Nuevo password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), id: (@usuario.errors[:password].any? ? "" : "inputError") %>
+                  </div>
+
+                  <%if @usuario.errors[:password_confirmation].any? %>
+                  <div class="form-group has-error">
+                     <%else%>
+                     <div class="form-inputs">  
+                        <%end%> 
+                        <%= f.input :password_confirmation, label: "Confirme su nuevo password", required: true, id: (@usuario.errors[:password_confirmation].any? ? "" : "inputError") %>
+                     </div>
+                     <div class="form-actions" align="center">
+                        <%= f.button :submit, "Cambiar password", :class=> "btn btn-primary" %>
+                     </div>
+                     <% end %>
+                     <%= render "devise/shared/links" %>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4"></div>
+         <!-- /.row -->
+      </div>
+      
+      <!-- /.container-fluid -->
+   </div>
+   <!-- /#page-wrapper -->
+</div>

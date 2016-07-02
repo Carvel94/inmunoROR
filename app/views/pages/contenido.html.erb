@@ -1,0 +1,46 @@
+<div class="clearfix"></div>
+<%if @pagina.imagen_banner.blank?%>
+<div class="page_title">
+<%else%>
+<div class="page_title" style="background: #97b5bf url(<%=@pagina.imagen_banner%>) repeat-y center top;height: 330px;">
+<%end%>
+ 
+</div>
+<!-- end page title --> 
+<!-- Contant
+  ======================================= -->
+<div>
+  <div class="content_left">
+    <h2><strong><%= "#{formatearOpcionMenu @opcionMenu0.titulo} : #{@pagina.titulo_contenido}"%></strong></h2>
+    <%= @pagina.contenido.html_safe %>
+  </div>
+  <!-- end content left side area -->
+  <!-- right sidebar starts -->
+  <div class="right_sidebar">
+    <div class="sidebar_widget">
+      <div class="sidebar_title">
+        <h3><%=formatearOpcionMenu @opcionMenu0.titulo%></i></h3>
+      </div>
+      <ul class="arrows_list1">
+        <% @enlaces.each do |enlace| %>
+        <% puts enlace.to_yaml%>   
+        <%if enlace.estado%> 
+            <%puts "id = #{enlace.id}"%>
+            <%puts "opcionmenu #{@opcionMenu0.enlace}"%>
+ 
+          <li>
+            <%=link_to send("#{@opcionMenu0.enlace}_path", enlace.id) do %>
+            <i class="fa fa-angle-right"></i><%=formatearOpcionMenu enlace.titulo%>
+            <%end%>
+          </li>
+        <%end%>
+        <%end%>
+      </ul>
+    </div>
+    <!-- end section -->
+    <div class="clearfix mar_top4"></div>
+  </div>
+</div>
+<!-- end content area -->
+<div class="clearfix"></div>
+<div class="mar_top5"></div>
