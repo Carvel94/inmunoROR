@@ -16,10 +16,10 @@
   </thead>
 
   <tbody>
-    <% @frascos.each do |frasco| %>
+    <% @frascos.each do |fra| %>
+      <th><%= link_to "#{fra.fetch(:nomAp)}:", frasco_path(fra) %></td>
       <tr>
-        <td><%= link_to 'Show', frasco_path(frasco) %></td>
-
+        <td><%= "Frasco #{fra.fetch(:frasco)}. #{fra.fetch(:ent)}" %></td>
       </tr>
     <% end %>
   </tbody>
