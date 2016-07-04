@@ -1,2 +1,6 @@
         <td><%= link_to 'Edit', edit_frasco_path(frasco) %></td>
         <td><%= link_to 'Destroy', frasco, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+
+
+        <%= link_to 'New Frasco', new_frasco_path %>

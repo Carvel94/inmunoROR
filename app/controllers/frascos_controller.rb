@@ -6,9 +6,43 @@ class FrascosController < ApplicationController
 
 
   def index
+    numFrasco = 0
+    fechaCrea = ""
+    fechaEntr = ""
     @frascos = []
-    @users = Usuario.select("id,nombre,apellido,frascos").where(rol:3)
-    @users.each do |usr|
+    frascoActual = ""
+    savea = 0
+    for e in 16..30
+      @users = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e)
+      frascoActual = @users.first.frascos
+      while (frascoActual.index("$"))
+        savea = 0
+        numFrasco = frascoActual.slice(1,frascoActual.index("#")-1)
+        puts numFrasco
+        frascoActual = frascoActual.slice(frascoActual.index("#")+1,frascoActual.size)
+        if (frascoActual.index("#"))
+          fechaCrea = frascoActual.slice(0,frascoActual.index("#"))
+          puts fechaCrea
+          frascoActual = frascoActual.slice(frascoActual.index("#")+1,frascoActual.size)
+          if (frascoActual.index("$"))
+            fechaEntr = frascoActual.slice(0,frascoActual.index("$"))
+            frascoActual = frascoActual.slice(frascoActual.index("$"),frascoActual.size)
+          else
+            fechaEntr = frascoActual
+          end
+          if fechaEntr == "NO RETIRO"
+            savea = 1
+          end         
+          puts fechaEntr
+          #puts frascoActual  
+          if savea == 1
+            @frascos.push({id:@users.first.id, nomAp:@users.first.nombre+" "+@users.first.apellido, frasco:numFrasco})
+          end
+        end
+      end
+        #puts @frascos
+      end
+    #puts @frascos
   end
 
   # GET /frascos/1
@@ -77,4 +111,4 @@ class FrascosController < ApplicationController
     def frasco_params
       params.fetch(:frasco, {})
     end
-end
+  end
