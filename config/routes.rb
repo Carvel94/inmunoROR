@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :frascos
   namespace :administrator do
     resource :pacientes do
        collection do

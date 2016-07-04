@@ -1,0 +1,32 @@
+ <div id="page-wrapper">
+ <h1>
+</h1>
+<div class="container-fluid">
+<h1>
+</h1>
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Frascos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @frascos.each do |frasco| %>
+      <tr>
+        <td><%= link_to 'Show', frasco_path(frasco) %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Frasco', new_frasco_path %>
+</div>
+</div>
