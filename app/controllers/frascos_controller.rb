@@ -16,7 +16,7 @@ class FrascosController < ApplicationController
     creado = 0
     total = Usuario.where(rol:3).count
     for e in 1..total
-      @users = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e)
+      @users = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e).take(10)
       frascosList = []
       if !(@users.empty?)
         frascoActual = @users.first.frascos
@@ -54,6 +54,7 @@ class FrascosController < ApplicationController
       end
     end
     @frascosUsr = @frascosUsr.sort_by { |hsh| hsh[:nomAp] }
+    @frascosUsr = @frascosUsr.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /frascos/1
