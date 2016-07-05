@@ -9,16 +9,20 @@ class FrascosController < ApplicationController
     numFrasco = 0
     fechaCrea = ""
     fechaEntr = ""
-    @frascos = []
+    @frascosUsr = []
+    frascosList = []
     frascoActual = ""
     entregado = 0
+    creado = 0
     total = Usuario.where(rol:3).count
-    for e in 16..total
+    for e in 1..total
       @users = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e)
-      if @users
+      frascosList = []
+      if !(@users.empty?)
         frascoActual = @users.first.frascos
         while (frascoActual.index("$"))
           entregado = 1
+          creado = 0
           numFrasco = frascoActual.slice(1,frascoActual.index("#")-1)
           puts numFrasco
           frascoActual = frascoActual.slice(frascoActual.index("#")+1,frascoActual.size)
@@ -32,22 +36,24 @@ class FrascosController < ApplicationController
             else
               fechaEntr = frascoActual
             end
-            if fechaEntr == "NO RETIRO" || fechaEntr == ""
-              entregado = 0
-            end         
             puts fechaEntr
-            estado = ""
-            if entregado == 1
-              estado = "Entregado"
-            else
-              estado = "No retirado"
-            end
-            @frascos.push({:id => @users.first.id, :nomAp => @users.first.nombre+" "+@users.first.apellido, :frasco => numFrasco, :ent =>estado})
-
+            if fechaCrea != ""
+              creado = 1
+              if fechaEntr == "NO RETIRO" || fechaEntr == ""
+                entregado = 0
+              end
+            end            
+            if creado == 1 && entregado ==0
+              frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea})
+            end            
           end
+        end
+        if !frascosList.empty?
+          @frascosUsr.push({:id => @users.first.id, :nomAp => @users.first.apellido+", "+@users.first.nombre, :frascos=> frascosList})
         end
       end
     end
+    @frascosUsr = @frascosUsr.sort_by { |hsh| hsh[:nomAp] }
   end
 
   # GET /frascos/1
