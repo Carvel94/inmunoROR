@@ -26,7 +26,7 @@ gem 'ckeditor'
 
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.4'
-gem 'font-awesome-sass', '~> 4.3.0'
+gem 'font-awesome-sass', '~> 4.0.1'
 
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'

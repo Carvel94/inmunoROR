@@ -1,0 +1,60 @@
+ <div id="page-wrapper">
+   <h1>
+   </h1>
+   <div class="container-fluid">
+
+
+    <%if !flash.nil?%>
+    <div class="row">
+      <div class="col-sm-12">
+        <% flash.each do |key, value| %>
+
+        <div class="alert alert-success fade in">
+          <a class="close" data-dismiss="alert" href="#">&times;</a>
+          <strong><%=value%></strong>
+        </div>
+        <% end %>
+      </div>
+    </div><!-- /.row -->
+
+    <%end%>
+
+    <table>
+      <thead>
+        <tr>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @frascosUsr.each do |usr| %>
+        <tr><td><h4><u><%= "#{usr.fetch(:nomAp)}. ##{usr.fetch(:id)}" %></u></h4></td></tr>
+        <% usr.fetch(:frascos).each do |fra| %>
+        <% entrega = fra.fetch(:fEnt)=="" ? "En espera de retiro" : fra.fetch(:fEnt)%>
+        <tr>
+          <td></td>
+          <td><i><b>Frasco <%= fra.fetch(:idFra) %>.</b></i> Preparado: <%=fra.fetch(:fCre)%> Estado:  <%=entrega%></td>
+          <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+          <td>           
+            <div align="center">
+            <%=link_to  frascos_destroy_path(usr.fetch(:id),fra.fetch(:idFra)), method: :post, 
+            title: 'Eliminar el frasco',
+            'data-toggle' => 'tooltip',
+            'data-placement' => 'right',
+            data: { confirm: 'Esta seguro que desea eliminar el frasco?' }  do %>
+            <span class="btn btn-danger btn-xs">--ELIMINAR FRASCO--</span>
+            <%end%>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+      <td>&nbsp</td>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+
+
+</div>
+</div>

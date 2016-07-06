@@ -32,12 +32,22 @@
 					<% 	strEntregado = "NO PREPARADO" %>
 					<%  strNoC = "--/--/--" %>
 					<% end %>
-					<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Preparado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estatus:</b> <%=strEntregado%></td>
-					<td>
-						<% if fra.fetch(:status) == 0 && fra.fetch(:fCre) != "" %>
-						<%=link_to "Entregar Frasco",frascos_update_path(@frascoU.fetch(:id),fra.fetch(:idFra)), :class => "btn btn-success btn-xs", :method => :post%>
-						<%end%>
+					<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Solicitado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estatus:</b> <%=strEntregado%></td>
+					<% if fra.fetch(:status) == 0 && fra.fetch(:fCre) != "" %>
+					<% if Date.parse(fra.fetch(:fCre)) < Date.parse(Time.new.strftime("%Y-%m-%d"))%>
+					<td>						
+						<%=link_to "Entregar Frasco",frascos_update_path(@frascoU.fetch(:id),fra.fetch(:idFra),0), :class => "btn btn-success btn-xs", :method => :post%>						
 					</td>
+					<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					<td>						
+						<%=link_to "Marcar como NO RETIRADO",frascos_update_path(@frascoU.fetch(:id),fra.fetch(:idFra),1), :class => "btn btn-danger btn-xs", :method => :post%>						
+					</td>
+					<% else %>
+					<td><div class="alert alert-warning">
+					<strong>Cuidado!</strong> Revise la hora del sistema. Una fecha de solicitud es mayor.
+					</div></td>
+					<%end%>
+					<%end%>
 				</tr>
 				<tr><td>&nbsp</td></tr>
 				<% end %>

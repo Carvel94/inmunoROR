@@ -14,7 +14,7 @@ accepts_nested_attributes_for :carrucels
 belongs_to :invited_by, :polymorphic => true
 
 #validate :has_been_published, on: :update
-=begin
+
 validates :historia, :presence => {:message => "Debe colocar el número de historia"},
                        length: {minimum: 1, maximum: 7, :message => "El número de historia debe tener máximo 7 números"},
                        :numericality => {:only_integer => true, :message => "El número de historia solo debe tener números"}, 
@@ -47,20 +47,20 @@ validates :email, presence: {message: "Debe colocar su correo electrónico"},
                   format:{:with => VALID_EMAIL_REGEX, message: "El formato del correo electrónico es invalido"}
 
 #validates :email, uniqueness: {message: "El correo ya se encuentra registrado"}
-
+=begin
 validates :email_confirmation, presence: {message: "Debe colocar la confirmación del correo principal"}, 
              if: ":validar_usuario_nuevo"
-
+=end
 validates :email, confirmation: { message: "El correo principal no coincide con su confirmación"},
             if: ":validar_usuario_nuevo"
 
 validates :email2, allow_blank: true, 
                    format: {:with => VALID_EMAIL_REGEX, 
                             message: "El formato del correo electrónico alternativo es invalido"}
-
-validates :email2_confirmation, presence: {message: "Debe colocar la confirmación del correo alternativo"}, if: ":validar_usuario_nuevo and !email2.blank?"
-
-validates :email2, confirmation: {message: "El correo alternativo no coincide con su confirmación"}, if: ":validar_usuario_nuevo and !email2.blank?"
+=begin
+validates :email2_confirmation, presence: {message: "Debe colocar la confirmación del correo alternativo"}, if: ":validar_usuario_nuevo && !email2.blank?"
+=end
+validates :email2, confirmation: {message: "El correo alternativo no coincide con su confirmación"}, if: ":validar_usuario_nuevo && !email2.blank?"
 
 validate :presencia_de_algun_telefono, unless: :saltar_validacion_usuario
 
@@ -90,7 +90,7 @@ validates :password, confirmation: {message: "La confirmación del password no c
 #message: "El formato del correo electrónico alternativo es invalido", 
 #allow_blank: :true, allow_nil: :true, on: :update
 
-=end
+
 def validar_passwords?
 #  validates :password, presence: {message: "Debe colocar su nuevo password"},
 #  validates :password, confirmation: {message: "La confirmación del password no coincide"}, if: "!password.blank?"

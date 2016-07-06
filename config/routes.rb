@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   
   get 'frascos/entregados' => 'frascos#entregados', :as => "frascos_entregados"
+  get 'frascos/eliminar' => 'frascos#eliminar', :as => "frascos_eliminar"
   resources :frascos
-  post 'frascos/update/:id/:idFra(.:format)' => "frascos#update",  :as => "frascos_update"
+  post 'frascos/update/:id/:idFra/:noRet(.:format)' => "frascos#update",  :as => "frascos_update"
+  post 'frascos/destroy/:id/:idFra(.:format)' => 'frascos#destroy', :as => "frascos_destroy"
 
   namespace :administrator do
     resource :pacientes do
