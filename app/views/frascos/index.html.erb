@@ -6,7 +6,7 @@
     </h1>
     <p id="notice"><%= notice %></p>
 
-    <h1>Listing Frascos</h1>
+    <h2>Lista de Frascos Preparados</h2>
 
     <table>
       <thead>
@@ -17,23 +17,24 @@
 
       <tbody>
         <% @frascosUsr.each do |usr| %>
-        <th><%= link_to "#{usr.fetch(:nomAp)}:", frasco_path("#{usr.fetch(:id)}") %></td>
-          <% usr.fetch(:frascos).each do |fra| %>
-          <tr>
-            <td></td>
-            <td><%= "Frasco #{fra.fetch(:idFra)}. #{fra.fetch(:fCre)}" %></td>
-          </tr>
-          <% end %>
-          <% end %>
-        </tbody>
-      </table>
+        <tr><td><%= link_to "#{usr.fetch(:nomAp)}:", frasco_path("#{usr.fetch(:id)}") %></td></tr>
+        <% usr.fetch(:frascos).each do |fra| %>
+        <tr>
+          <td></td>
+          <td><%= "Frasco #{fra.fetch(:idFra)}. #{fra.fetch(:fCre)}" %></td>
+        </tr>
+        <% end %>
+        <td>&nbsp</td>
+        <% end %>
+      </tbody>
+    </table>
 
-      <br>
+    <br>
 
-      <div style="text-align:center">
-        <%= will_paginate @frascosUsr,  renderer: BootstrapPagination::Rails %>
-        <%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 10} %>
-      </div>
-
+    <div style="text-align:center">
+      <%= will_paginate @frascosUsr,  renderer: BootstrapPagination::Rails %>
+      <%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 10} %>
     </div>
+
   </div>
+</div>

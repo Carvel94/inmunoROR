@@ -1,14 +1,54 @@
 
 <div id="page-wrapper">
-<h1>
-</h1>
-<div class="container-fluid">
-<h1>
-</h1>
-<p id="notice"><%= notice %></p>
+	<h1>
+	</h1>
+	<div class="container-fluid">
+		<h1>
+		</h1>
+		
+		<h1><%= "#{@frascoU.fetch(:nomAp)}" %> </h1>
+		<h1>&nbsp</h1>
+		<%#= link_to 'Edit', edit_frasco_path(@frasco) %>
 
-<%= link_to 'Edit', edit_frasco_path(@frasco) %> |
-<%= link_to 'Back', frascos_path %>
+		<p id="notice"><%= notice %></p>
+		
+		<table>
+			<thead>
+				<tr>
+					<th colspan="3"></th>
+				</tr>
+			</thead>
 
-</div>	
+			<tbody>
+				<% @frascoU.fetch(:frascos).each do |fra| %>
+				<tr>
+					<td></td>
+					<% strNoC = "" %>
+					<% if fra.fetch(:status) == 0 %>
+					<% 	strEntregado = "En espera de retiro" %>
+					<% elsif fra.fetch(:status) == -1 %>
+					<% 	strEntregado = "NO RETIRADO" %>
+					<% else %>
+					<% 	strEntregado = "Entregado el #{fra.fetch(:fEnt)}" %>
+					<% end %>
+					<% if fra.fetch(:fCre) == "" %>
+					<% 	strEntregado = "NO PREPARADO" %>
+					<%  strNoC = "--/--/--" %>
+					<% end %>
+					<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Preparado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estatus:</b> <%=strEntregado%></td>
+					<td>
+						<% if fra.fetch(:status) == 0 && fra.fetch(:fCre) != "" %>
+						<%=link_to "Entregar Frasco",frascos_update_path(@frascoU.fetch(:id),fra.fetch(:idFra)), :class => "btn btn-success btn-xs", :method => :post%>
+						<%end%>
+					</td>
+				</tr>
+				<tr><td>&nbsp</td></tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<h1>&nbsp</h1>
+		<%= link_to "Echar pa' atras", frascos_path %>
+
+	</div>	
 </div>

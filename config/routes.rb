@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
   resources :frascos
+
+  post 'frascos/update/:id/:idFra(.:format)' => "frascos#update",  :as => "frascos_update"
+
   namespace :administrator do
     resource :pacientes do
        collection do

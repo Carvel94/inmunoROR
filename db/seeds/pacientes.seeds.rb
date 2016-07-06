@@ -49,8 +49,8 @@ for fila in (4 .. ex.last_row)
               :telefono_trabajo => "02127777777",
               :celular1 => nil,
               :celular2 => nil,
-              :email => ex.cell(fila,2).strip.split[0]+ex.cell(fila,3).strip.split[0]+ "@gmail.com",
-              :email2 => ex.cell(fila,2).strip.split[0]+ex.cell(fila,3).strip.split[0]+ "@gmail.com",
+              :email => ex.cell(fila,2).strip.split[0].downcase+ex.cell(fila,3).strip.split[0].downcase+ "@gmail.com",
+              :email2 => ex.cell(fila,2).strip.split[0].downcase+ex.cell(fila,3).strip.split[0].downcase+ "@gmail.com",
               #se esta colocando como username y password:
               #historia-numero
               #por ejemplo para el usuario 

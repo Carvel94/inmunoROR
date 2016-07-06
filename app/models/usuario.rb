@@ -14,7 +14,7 @@ accepts_nested_attributes_for :carrucels
 belongs_to :invited_by, :polymorphic => true
 
 #validate :has_been_published, on: :update
-
+=begin
 validates :historia, :presence => {:message => "Debe colocar el número de historia"},
                        length: {minimum: 1, maximum: 7, :message => "El número de historia debe tener máximo 7 números"},
                        :numericality => {:only_integer => true, :message => "El número de historia solo debe tener números"}, 
@@ -90,7 +90,7 @@ validates :password, confirmation: {message: "La confirmación del password no c
 #message: "El formato del correo electrónico alternativo es invalido", 
 #allow_blank: :true, allow_nil: :true, on: :update
 
-
+=end
 def validar_passwords?
 #  validates :password, presence: {message: "Debe colocar su nuevo password"},
 #  validates :password, confirmation: {message: "La confirmación del password no coincide"}, if: "!password.blank?"
