@@ -5,13 +5,10 @@
 	<div class="container-fluid">
 		<h1>
 		</h1>
-		
-		<h1><%= "#{@frascoU.fetch(:nomAp)}" %> </h1>
-		<h1>&nbsp</h1>
+		<%= render 'shared/dosFilasVistaShow', tituloVentana: "Frascos preparados de: #{@frascoU.fetch(:nomAp)}"%>
+
 		<%#= link_to 'Edit', edit_frasco_path(@frasco) %>
 
-		<p id="notice"><%= notice %></p>
-		
 		<table>
 			<thead>
 				<tr>
@@ -48,7 +45,7 @@
 		</table>
 
 		<h1>&nbsp</h1>
-		<%= link_to "Echar pa' atras", frascos_path %>
+		<%= link_to "Regresar", frascos_path %>
 
 	</div>	
 </div>

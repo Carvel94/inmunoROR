@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'frascos/entregados' => 'frascos#entregados', :as => "frascos_entregados"
   resources :frascos
-
   post 'frascos/update/:id/:idFra(.:format)' => "frascos#update",  :as => "frascos_update"
 
   namespace :administrator do

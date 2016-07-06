@@ -4,22 +4,61 @@ class FrascosController < ApplicationController
   # GET /frascos
   # GET /frascos.json
 
+  include CodigosGenerales
+  layout :colocar_layout
 
   def index
+    array_frascos_usuario(0)
+  end
+
+  def entregados    
     @frascosUsr = []
-    total = Usuario.where(rol:3).count
-    for e in 1..total
-      uActual = obtener_frascos_usuario(e,0)
-      @frascosUsr.push(uActual) if uActual != nil
+    if (params[:frasco])
+      if (params[:frasco][:fInicio].present? && params[:frasco][:fFin].present?)
+        if Date.parse(params[:frasco][:fInicio]) <= Date.parse(params[:frasco][:fFin])
+          array_frascos_usuario(-1)
+          
+          if @frascosUsr.length == 0
+            flash.now[:alert] = "No existen entregas en el intervalo de tiempo"
+          end   
+        else
+          flash.now[:alert] = "Fechas inválidas"
+          @frascosUsr = []
+        end  
+      else
+        flash.now[:alert] = "No ha colocado la información"
+        @frascosUsr = []
+      end   
+    else
+      @frascosUsr = []
     end
+  end
+
+  def array_frascos_usuario(modo)
+    users = Usuario.select("id,nombre,apellido,frascos").where(rol:3) 
+    @frascosUsr = []
+    users.each do |u|      
+      @frascosUsr.push(obtener_frascos_usuario(u,modo))
+    end
+    @frascosUsr = @frascosUsr.compact
     @frascosUsr = @frascosUsr.sort_by { |hsh| hsh[:nomAp] }
     @frascosUsr = @frascosUsr.paginate(:page => params[:page], :per_page => 10)
+
+  end
+
+
+
+  def filtro_por_fecha (fecEnt)
+    dMin =Date.parse(params[:frasco][:fInicio])
+    dMax =Date.parse(params[:frasco][:fFin])
+    dEnt =Date.parse(fecEnt)
+    return dMin <= dEnt && dEnt <= dMax
   end
 
   # GET /frascos/1
   # GET /frascos/1.json
   def show
-    @frascoU = obtener_frascos_usuario(params[:id],1)
+    @frascoU = obtener_frascos_usuario(Usuario.select("id,nombre,apellido,frascos").where(id:params[:id]).take,1)
   end
 
   # GET /frascos/new
@@ -106,7 +145,8 @@ class FrascosController < ApplicationController
       return Usuario.select("frascos").where(rol:3, id:per).take.frascos
     end
 
-    def obtener_frascos_usuario(e,todos)
+    def obtener_frascos_usuario(user,criterio)
+      #criterio => 1: todos los frascos, 0: solo preparados, -1: entregados
       numFrasco = 0
       fechaCrea = ""
       fechaEntr = ""
@@ -114,49 +154,47 @@ class FrascosController < ApplicationController
       frascoActual = ""
       entregado = 0
       creado = 0      
-      users = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e)
+      #user = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e)
       frascosList = []
-      if !(users.empty?)
-        frascoActual = users.first.frascos
-        while (frascoActual.index("$"))
-          entregado = 0
-          creado = 0
-          numFrasco = frascoActual.slice(1,frascoActual.index("#")-1)
-          puts numFrasco
+      frascoActual = user.frascos
+      while (frascoActual.index("$"))
+        entregado = 0
+        creado = 0
+        numFrasco = frascoActual.slice(1,frascoActual.index("#")-1)
+        #puts numFrasco
+        frascoActual = frascoActual.slice(frascoActual.index("#")+1,frascoActual.size)
+        if (frascoActual.index("#"))
+          fechaCrea = frascoActual.slice(0,frascoActual.index("#"))
+          #puts fechaCrea
           frascoActual = frascoActual.slice(frascoActual.index("#")+1,frascoActual.size)
-          if (frascoActual.index("#"))
-            fechaCrea = frascoActual.slice(0,frascoActual.index("#"))
-            puts fechaCrea
-            frascoActual = frascoActual.slice(frascoActual.index("#")+1,frascoActual.size)
-            if (frascoActual.index("$"))
-              fechaEntr = frascoActual.slice(0,frascoActual.index("$"))
-              frascoActual = frascoActual.slice(frascoActual.index("$"),frascoActual.size)
+          if (frascoActual.index("$"))
+            fechaEntr = frascoActual.slice(0,frascoActual.index("$"))
+            frascoActual = frascoActual.slice(frascoActual.index("$"),frascoActual.size)
+          else
+            fechaEntr = frascoActual
+          end
+          #puts fechaEntr
+          if fechaCrea != ""
+            creado = 1
+            if fechaEntr == "NO RETIRO" || fechaEntr == "SUSPENDIO" 
+              entregado = -1
+            elsif  fechaEntr == ""
+              entregado = 0
             else
-              fechaEntr = frascoActual
+              entregado = 1
             end
-            puts fechaEntr
-            if fechaCrea != ""
-              creado = 1
-              if fechaEntr == "NO RETIRO"
-                entregado = -1
-              elsif  fechaEntr == ""
-                entregado = 0
-              else
-                entregado = 1
-              end
-            end            
-            if todos == 1
-              frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
-            elsif creado == 1 && entregado != 1
-              frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
-            end
+          end            
+          if criterio == 1
+            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
+          elsif criterio == 0 && creado == 1 && entregado != 1
+            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
+          elsif criterio == -1 && creado == 1 && entregado == 1 && filtro_por_fecha(fechaEntr)
+            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
           end
         end
-        if !frascosList.empty?
-          return {:id => users.first.id, :nomAp => users.first.apellido+", "+users.first.nombre, :frascos=> frascosList}
-        end
-      else
-        return nil
+      end
+      if !frascosList.empty?
+        return {:id => user.id, :nomAp => user.apellido+", "+user.nombre, :frascos=> frascosList}
       end
     end
 

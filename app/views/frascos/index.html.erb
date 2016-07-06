@@ -2,11 +2,13 @@
    <h1>
    </h1>
    <div class="container-fluid">
-    <h1>
-    </h1>
-    <p id="notice"><%= notice %></p>
+<%= render 'shared/dosFilasVistaShow', tituloVentana: "Lista de Frascos Preparados"%>
 
-    <h2>Lista de Frascos Preparados</h2>
+    <h2></h2>
+    <div style="text-align:center">
+      <%= will_paginate @frascosUsr,  renderer: BootstrapPagination::Rails %>
+      <%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 10} %>
+    </div>
 
     <table>
       <thead>
