@@ -37,16 +37,6 @@
         <% usr.fetch(:frascos).each do |fra| %>
         <% noti = Integer(fra.fetch(:idFra)).modulo(2).zero? ? "Si" : "No" %>
         <% llama = Integer(fra.fetch(:idFra)).modulo(3).zero? ? "Si" : "No" %>
-        <%# if fra.fetch(:idFra).modulo(2).zero? %>
-        <%# noti = "Si" %>
-        <%# else %>
-        <%# noti = "No" %>
-        <%# end %>
-        <%# if fra.fetch(:idFra).modulo(3).zero? %>
-        <%# llama = "Si" %>
-        <%# else %>
-        <%# llama = "No" %>
-        <%# end %>
         <tr>
           <td></td>
           <td><i><b>Frasco <%= fra.fetch(:idFra) %>.</b></i>&nbsp&nbspNotificado por e-mail: <%=noti%>.&nbsp&nbspLlamado: <%=llama%>.&nbsp&nbsp Entregado:  <%=fra.fetch(:fEnt)%></td>

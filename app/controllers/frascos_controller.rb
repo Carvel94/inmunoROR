@@ -101,7 +101,7 @@ end
       mensaje = 'Se ha entregado el frasco'
     else
       actualizar = 'NO RETIRO'
-      mensaje = 'Se ha cambiado el frasco a NO RETIRADO'
+      mensaje = 'Se ha cambiado el estado del frasco a NO RETIRADO'
     end
     buenosFrascos.insert(indice,actualizar)
     puts buenosFrascos
@@ -123,20 +123,35 @@ end
   # DELETE /frascos/1
   # DELETE /frascos/1.json
   def destroy
-    #elFrascos = obtener_frascos_string(params[:id])
-    #indice1 = elFrascos.index("$"+params[:idFra]+"#")
-    #indice2 = elFrascos.index("#", elFrascos.index("#", elFrascos.index("$"+params[:idFra]+"#"))+1)+10
-    #puts indice
-    #
-    #elFrascos.insert(indice,time.strftime("%Y-%m-%d"))
-    #puts elFrascos
-    #@frasco.frascos = elFrascos
-    #
-    #@frasco.destroy
-    #respond_to do |format|
-    #  format.html { redirect_to frascos_url, notice: 'Frasco was successfully destroyed.' }
-    #  format.json { head :no_content }
-    #end
+    elFrascos = obtener_frascos_string(params[:id])
+    puts elFrascos
+    sub1 = elFrascos.slice(0,elFrascos.index("$"+params[:idFra]+"#"))
+    elFrascos = elFrascos.slice(elFrascos.index("$"+params[:idFra]+"#")+1,elFrascos.size)
+    elFrascos = elFrascos.slice(elFrascos.index("#")+1,elFrascos.size)
+    if(elFrascos.index("#"))
+      elFrascos = elFrascos.slice(elFrascos.index("#")+1,elFrascos.size)
+      if(elFrascos.index("$"))
+        sub2 = elFrascos.slice(elFrascos.index("$"),elFrascos.size)
+      else
+        sub2=""
+      end
+    end
+    puts sub1
+    puts sub2
+    elFrascos = sub1+sub2
+    puts elFrascos
+    @frasco.frascos = elFrascos
+    @frasco.saltar_validacion_usuario = true
+    @frasco.validar_usuario_nuevo = false
+    respond_to do |format|
+      if @frasco.save
+        format.html { redirect_to frascos_eliminar_path, notice: "Se ha eliminado el frasco #{params[:idFra]} del paciente #{params[:id]}" }
+        format.json { render :eliminar, status: :ok, location: @frasco }
+      else
+        format.html { render :eliminar}
+        format.json { render json: @frasco.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def eliminar
@@ -163,22 +178,7 @@ end
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_frasco
-      @frasco = Usuario.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def frasco_params
-      params.fetch(:frasco, {})
-    end
-
-    def obtener_frascos_string(per)
-      return Usuario.select("frascos").where(rol:3, id:per).take.frascos
-    end
-
-    def obtener_frascos_usuario(user,criterio)
+  def obtener_frascos_usuario(user,criterio)
       #criterio => 1: todos los frascos, 0: solo preparados, -1: entregados
       numFrasco = 0
       fechaCrea = ""
@@ -190,6 +190,7 @@ end
       #user = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:e)
       frascosList = []
       frascoActual = user.frascos
+      sus = 0
       while (frascoActual.index("$"))
         entregado = 0
         creado = 0
@@ -217,18 +218,37 @@ end
               entregado = 1
             end
           end            
-          if criterio == 1
+          if criterio == 1 && creado == 1
             frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
           elsif criterio == 0 && creado == 1 && entregado != 1
             frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
           elsif criterio == -1 && creado == 1 && entregado == 1 && filtro_por_fecha(fechaEntr)
             frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
           end
+        else
+          sus = 1
         end
       end
       if !frascosList.empty?
-        return {:id => user.id, :nomAp => user.apellido+", "+user.nombre, :frascos=> frascosList}
+        return {:id => user.id, :nomAp => user.apellido+", "+user.nombre, :susp=>sus, :frascos=> frascosList}
       end
     end
+
+    private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_frasco
+      @frasco = Usuario.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def frasco_params
+      params.fetch(:frasco, {})
+    end
+
+    def obtener_frascos_string(per)
+      return Usuario.select("frascos").where(rol:3, id:per).take.frascos
+    end
+
+    
 
   end

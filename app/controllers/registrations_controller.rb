@@ -12,7 +12,7 @@ include CodigosGenerales
 layout :colocar_layout
 
 def index
-  @pacientes = Usuario.where(rol: 3)
+  @pacientes = Usuario.where(rol: 3).order("apellido")
 end 
 
 def new
