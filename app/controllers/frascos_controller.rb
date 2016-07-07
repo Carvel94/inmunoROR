@@ -119,7 +119,7 @@ end
         format.json { render json: @frasco.errors, status: :unprocessable_entity }
       end
     end
-    puts "Ando jodiendo"
+    puts "Ando actualizando"
   end
 
   # DELETE /frascos/1
