@@ -21,7 +21,6 @@
         <% end %>
       </div>
     </div><!-- /.row -->
-
     <%end%>
 
     <%if !@frascosUsr.nil? %>
@@ -32,25 +31,19 @@
           <tr >
             <th>Apellido, Nombre</th>
             <th>ID</th>
-            <th>Llamado</th>
-            <th>Notificado</th>
             <th>Nro. Frasco</th>
-            <th>Fecha de entrega</th>
+            <th>Fecha de creación</th>
           </tr>
         </thead>
         <tbody style="overflow-y: scroll;height: auto; width:100%">
 
          <% @frascosUsr.each_with_index do |usr| %>
          <% usr.fetch(:frascos).each do |fra| %>
-         <% noti = Integer(fra.fetch(:idFra)).modulo(2).zero? ? "Si" : "No" %>
-         <% llama = Integer(fra.fetch(:idFra)).modulo(3).zero? ? "Si" : "No" %>
          <tr>
-          <td><%="#{usr.fetch(:nomAp)}"%></td>
+          <td><%=link_to "#{usr.fetch(:nomAp)}", frasco_path("#{usr.fetch(:id)}") %></td>
           <td><%="#{usr.fetch(:id)}"%></td>
-          <td><%=llama%></td>
-          <td><%=noti%></td>
           <td><%=fra.fetch(:idFra)%></td>
-          <td><%=fra.fetch(:fEnt)%></td>
+          <td><%=fra.fetch(:fCre)%></td>
         </tr>
         <%end%>
         <%end%>
@@ -66,7 +59,7 @@
   <!-- la siguiente instrucción carga la páginación con bootstrap-->
 
   <div style="text-align:center">
-    <%= js_will_paginate @frascosUsr, {page: params[:page], per_page: 5} %>
+  <%= js_will_paginate @frascosUsr, {page: params[:page], per_page: 5} %>
   </div>
 
   <%#= js_will_paginate @pacientes %>

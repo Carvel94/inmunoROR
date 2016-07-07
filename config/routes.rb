@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get 'frascos/entregados' => 'frascos#entregados', :as => "frascos_entregados"
   get 'frascos/eliminar' => 'frascos#eliminar', :as => "frascos_eliminar"
+  get 'frascos/no_retirados' => 'frascos#no_retirados', :as => "frascos_no_retirados"
   resources :frascos
   post 'frascos/update/:id/:idFra/:noRet(.:format)' => "frascos#update",  :as => "frascos_update"
   post 'frascos/destroy/:id/:idFra(.:format)' => 'frascos#destroy', :as => "frascos_destroy"

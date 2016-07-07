@@ -11,14 +11,35 @@ include CodigosGenerales
 layout :colocar_layout
 
 def index
-  array_frascos_usuario(0)
+  @frascosUsr = []
+  if (params[:paciente])
+    if (params[:paciente][:fInicio].present? && params[:paciente][:fFin].present?)
+      if Date.parse(params[:paciente][:fInicio]) <= Date.parse(params[:paciente][:fFin])
+        array_frascos_usuario(2)
+
+        if @frascosUsr.length == 0
+          flash.now[:alert] = "No se crearon frascos en el intervalo de tiempo"
+        end   
+      else
+        flash.now[:alert] = "Fechas inválidas"
+        @frascosUsr = []
+      end  
+    else
+      flash.now[:alert] = "No ha colocado la información"
+      @frascosUsr = []
+    end   
+  else
+    @frascosUsr = []
+  end
 end
+
+
 
 def entregados    
   @frascosUsr = []
-  if (params[:frasco])
-    if (params[:frasco][:fInicio].present? && params[:frasco][:fFin].present?)
-      if Date.parse(params[:frasco][:fInicio]) <= Date.parse(params[:frasco][:fFin])
+  if (params[:paciente])
+    if (params[:paciente][:fInicio].present? && params[:paciente][:fFin].present?)
+      if Date.parse(params[:paciente][:fInicio]) <= Date.parse(params[:paciente][:fFin])
         array_frascos_usuario(-1)
 
         if @frascosUsr.length == 0
@@ -37,6 +58,8 @@ def entregados
   end
 end
 
+
+
 def array_frascos_usuario(modo)
   users = Usuario.select("id,nombre,apellido,frascos").where(rol:3) 
   @frascosUsr = []
@@ -49,10 +72,10 @@ def array_frascos_usuario(modo)
 
 end
 
-def filtro_por_fecha (fecEnt)
-  dMin =Date.parse(params[:frasco][:fInicio])
-  dMax =Date.parse(params[:frasco][:fFin])
-  dEnt =Date.parse(fecEnt)
+def filtro_por_fecha (fecParam)
+  dMin =Date.parse(params[:paciente][:fInicio])
+  dMax =Date.parse(params[:paciente][:fFin])
+  dEnt =Date.parse(fecParam)
   return dMin <= dEnt && dEnt <= dMax
 end
 
@@ -157,11 +180,11 @@ end
   end
 
   def eliminar
-    @frascosUsr = []
-    if (params[:frasco])
-      if (params[:frasco][:pacID].present?)
-        if (params[:frasco][:pacID].to_i > 0)
-          user = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:params[:frasco][:pacID].to_i)
+    @frascosUsr = [] 
+    if (params[:paciente])
+      if (params[:paciente][:pacID].present?)
+        if (params[:paciente][:pacID].to_i > 0)
+          user = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:params[:paciente][:pacID].to_i)
           user.each do |u| 
             @frascosUsr.push(obtener_frascos_usuario(u,0))
           end
@@ -180,8 +203,32 @@ end
     end
   end
 
+  def no_retirados
+    @frascosUsr = []
+    if (params[:paciente])
+      if (params[:paciente][:pacID].present?)
+        if (params[:paciente][:pacID].to_i > 0)
+          user = Usuario.select("id,nombre,apellido,frascos").where(rol:3, id:params[:paciente][:pacID].to_i)
+          user.each do |u| 
+            @frascosUsr.push(obtener_frascos_usuario(u,3))
+          end
+          @frascosUsr = @frascosUsr.compact
+          flash.now[:alert] = "No existe el usuario o no posee frascos en espera de entrega." if (@frascosUsr.length == 0)             
+        else
+          flash.now[:alert] = "Entrada inválida"
+          @frascosUsr = []
+        end  
+      else
+        flash.now[:alert] = "No ha colocado la información"
+        @frascosUsr = []
+      end   
+    else
+      @frascosUsr = []
+    end
+  end
+
   def obtener_frascos_usuario(user,criterio)
-      #criterio => 1: todos los frascos, 0: solo preparados, -1: entregados
+      #criterio =>  -1: entregados, 0: no entregados (preparados+no retirados), 1: todos los frascos, 2:solo preparados(fecha) 3:solo preparados(id)
       numFrasco = 0
       fechaCrea = ""
       fechaEntr = ""
@@ -222,8 +269,12 @@ end
           end            
           if criterio == 1 && creado == 1
             frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
+          elsif criterio == 2 && creado == 1 && entregado == 0 && filtro_por_fecha(fechaCrea)
+            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado}) 
+          elsif criterio == 3 && creado == 1 && entregado == 0
+            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado}) 
           elsif criterio == 0 && creado == 1 && entregado != 1
-            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
+            frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})           
           elsif criterio == -1 && creado == 1 && entregado == 1 && filtro_por_fecha(fechaEntr)
             frascosList.push({:idFra => numFrasco, :fCre =>fechaCrea, :fEnt =>fechaEntr, :status=>entregado})
           end
@@ -244,13 +295,11 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def frasco_params
-      params.fetch(:frasco, {})
+      params.fetch(:paciente, {})
     end
 
     def obtener_frascos_string(per)
       return Usuario.select("frascos").where(rol:3, id:per).take.frascos
     end
-
-    
 
   end

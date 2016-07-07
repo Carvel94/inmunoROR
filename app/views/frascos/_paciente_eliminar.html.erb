@@ -19,24 +19,33 @@
 
     <%end%>
 
-    <table>
-      <thead>
-        <tr>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <% @frascosUsr.each do |usr| %>
-        <tr><td><h4><u><%= "#{usr.fetch(:nomAp)}. ##{usr.fetch(:id)}" %></u></h4></td></tr>
-        <% usr.fetch(:frascos).each do |fra| %>
-        <% entrega = fra.fetch(:fEnt)=="" ? "En espera de retiro" : fra.fetch(:fEnt)%>
-        <tr>
-          <td></td>
-          <td><i><b>Frasco <%= fra.fetch(:idFra) %>.</b></i> Preparado: <%=fra.fetch(:fCre)%> Estado:  <%=entrega%></td>
-          <td>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-          <td>           
-            <div align="center">
+    <%if !@frascosUsr.nil? %>
+
+    <div class="table-responsive" style="height:360px"> 
+      <table class="table table-striped table-hover" >
+        <thead >
+          <tr >
+            <th>Apellido, Nombre</th>
+            <th>ID</th>
+            <th>Nro. Frasco</th>
+            <th>Fecha de creación</th>
+            <th>Estado</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody style="overflow-y: scroll;height: auto; width:100%">
+
+         <% @frascosUsr.each_with_index do |usr| %>
+         <% usr.fetch(:frascos).each do |fra| %>
+         <% entrega = fra.fetch(:fEnt)=="" ? "En espera de retiro" : fra.fetch(:fEnt)%>
+         <tr>
+          <td><%="#{usr.fetch(:nomAp)}"%></td>
+          <td><%="#{usr.fetch(:id)}"%></td>
+          <td><%=fra.fetch(:idFra)%></td>
+          <td><%=fra.fetch(:fEnt)%></td>
+          <td><%=entrega%></td>
+          <td><div align="center">
             <%=link_to  frascos_destroy_path(usr.fetch(:id),fra.fetch(:idFra)), method: :post, 
             title: 'Eliminar el frasco',
             'data-toggle' => 'tooltip',
@@ -44,14 +53,32 @@
             data: { confirm: 'Esta seguro que desea eliminar el frasco?' }  do %>
             <span class="btn btn-danger btn-xs">--ELIMINAR FRASCO--</span>
             <%end%>
-          </div>
-        </td>
-      </tr>
-      <% end %>
-      <td>&nbsp</td>
-      <% end %>
-    </tbody>
-  </table>
+          </div></td>
+        </tr>
+        <%end%>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+
+  <!--el siguiente código coloca la páginación sin estilos -->
+  <div id="page_links">
+    <%#= paginate @pacientes %>
+  </div>
+
+  <!-- la siguiente instrucción carga la páginación con bootstrap-->
+
+  <div style="text-align:center">
+    <%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 5} %>
+  </div>
+
+
+  <%#= js_will_paginate @pacientes %>
+
+
+  <%end%>
+
+
 
   <br>
 

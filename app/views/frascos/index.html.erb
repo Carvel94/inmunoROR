@@ -1,42 +1,65 @@
- <div id="page-wrapper">
-   <h1>
-   </h1>
-   <div class="container-fluid">
-<%= render 'shared/dosFilasVistaShow', tituloVentana: "Lista de Frascos Preparados"%>
+<div id="page-wrapper">
+ <div class="container-fluid2">
+   <%= render 'shared/dosFilasVistaShow', tituloVentana: "Buscar Frascos Preparados"%>
 
-    <h2></h2>
-    <div style="text-align:center">
-      <%= will_paginate @frascosUsr,  renderer: BootstrapPagination::Rails %>
-      <%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 10} %>
-    </div>
+   <div class="row" >       
+    <div class="col-md-1"></div>
+    <div class="col-md-10">         
+      <div class="panel panel-primary" style="margin-bottom: 10px">
+        <div class="panel-heading">
+          <h3 class="panel-title"></h3>
+          <div style="text-align: center"><h3 class="panel-title">Rango de fechas de creación </h3></div>
+        </div>
+        <div class="panel-body2">
+         <div class="list-group" style="margin-bottom: 1px">
+           <%=simple_form_for(:paciente, remote: true, url: (frascos_path), method: :get, html: { class: 'form-horizontal' }) do |f| %>
 
-    <table>
-      <thead>
-        <tr>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
+           <%= f.error_notification %>           
 
-      <tbody>
-        <% @frascosUsr.each do |usr| %>
-        <tr><td><%= link_to "#{usr.fetch(:nomAp)}:", frasco_path("#{usr.fetch(:id)}") %></td></tr>
-        <% usr.fetch(:frascos).each do |fra| %>
-        <tr>
-          <td></td>
-          <td><%= "Frasco #{fra.fetch(:idFra)}. #{fra.fetch(:fCre)}" %></td>
-        </tr>
-        <% end %>
-        <td>&nbsp</td>
-        <% end %>
-      </tbody>
-    </table>
+           <div class="form-group ">
+            <label class="control-label col-md-2" >Fecha Inicio:</label>
+            <div class='input-group date col-md-2' id='datetimepicker1'>
+              <%= f.input_field :fInicio, label: false, class: ' form-control', as: :string %>
+              <span class="input-group-addon">
+                <span class="fa fa-calendar"></span>
+              </span>
+            </div>
+          </div>
 
-    <br>
-
-    <div style="text-align:center">
-      <%= will_paginate @frascosUsr,  renderer: BootstrapPagination::Rails %>
-      <%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 10} %>
+          <div class="form-group ">
+            <label class="control-label col-md-2" >Fecha Fin:</label>
+            <div class='input-group date col-md-2' id='datetimepicker2'>
+              <%= f.input_field :fFin, label: false, class: 'form-control', as: :string %>
+              <span class="input-group-addon">
+                <span class="fa fa-calendar"></span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="col-md-2">
+              <div class="form-actions" align="center">
+                <%= f.button :submit, 'Buscar Frascos', :class=> "btn-primary" %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
     </div>
 
   </div>
+  <div class="col-md-1"></div>
+</div> <!-- /.row -->
+
+<div id="loading-indicator" style="margin-bottom: 5px">
+ <%= image_tag("ajax-loader.gif", :id => "loading-indicator", :style => "display:none") %>
 </div>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1" id="lista_prepa">
+   <%#= render @pacientes %>
+ </div>
+</div>
+
+</div><!-- /.container-fluid -->
+</div><!-- /#page-wrapper -->

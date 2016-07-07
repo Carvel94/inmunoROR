@@ -12,7 +12,7 @@
         </div>
         <div class="panel-body2">
          <div class="list-group" style="margin-bottom: 1px">
-           <%=simple_form_for(:frasco, remote: true, url: (frascos_entregados_path), method: :get, html: { class: 'form-horizontal' }) do |f| %>
+           <%=simple_form_for(:paciente, remote: true, url: (frascos_entregados_path), method: :get, html: { class: 'form-horizontal' }) do |f| %>
 
            <%= f.error_notification %>           
 

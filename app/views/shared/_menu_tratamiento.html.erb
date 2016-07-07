@@ -57,6 +57,9 @@
     	<li>
       Control de vacunas entregadas
     	</li!-->
+      <li>
+      <%=link_to "Cambio de estado de frasco", frascos_no_retirados_path%>       
+      </li>
     	<li>
       <%=link_to "Eliminación de vacunas preparadas", frascos_eliminar_path%>       
     	</li>
@@ -64,10 +67,10 @@
       Vacunas solicitadas
     	</li!-->
     	<li>
-      <%=link_to "Vacunas preparadas (NO ENTREGADAS)", frascos_path%>
+      <%=link_to "Control de vacunas preparadas", frascos_path%>
     	</li>
       <li>
-      <%=link_to "Vacunas entregadas", frascos_entregados_path%>    
+      <%=link_to "Lista de vacunas entregadas", frascos_entregados_path%>    
     	</li>	
 
  </ul>   	
