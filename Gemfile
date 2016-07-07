@@ -76,6 +76,8 @@ group :development do
   gem 'better_errors'
   gem "binding_of_caller"
   gem 'quiet_assets'
+  gem 'meta_request'
+
   #
   #gem 'debugger', '~> 1.6.6'
   gem 'sqlite3'

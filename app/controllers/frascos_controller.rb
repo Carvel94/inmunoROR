@@ -94,7 +94,9 @@ end
     buenosFrascos = obtener_frascos_string(params[:id])
     indice = buenosFrascos.index("#", buenosFrascos.index("#", buenosFrascos.index("$"+params[:idFra]+"#"))+1)+1
     puts indice
-    if(params[:noRet]) == 0
+    
+
+    if(Integer(params[:noRet]) == 0)
       actualizar = Time.new
       puts actualizar.strftime("%Y-%m-%d")
       actualizar = actualizar.strftime("%Y-%m-%d")

@@ -32,7 +32,7 @@
 					<% 	strEntregado = "NO PREPARADO" %>
 					<%  strNoC = "--/--/--" %>
 					<% end %>
-					<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Solicitado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estatus:</b> <%=strEntregado%></td>
+					<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Solicitado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estado:</b> <%=strEntregado%></td>
 					<% if fra.fetch(:status) == 0 && fra.fetch(:fCre) != "" %>
 					<% if Date.parse(fra.fetch(:fCre)) < Date.parse(Time.new.strftime("%Y-%m-%d"))%>
 					<td>						

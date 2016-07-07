@@ -12,7 +12,7 @@ include CodigosGenerales
 layout :colocar_layout
 
 def index
-  @pacientes = Usuario.where(rol: 3).order("apellido")
+  @pacientes = Usuario.where(rol: 3).order("apellido").paginate(:page => params[:page], :per_page => 30)
 end 
 
 def new

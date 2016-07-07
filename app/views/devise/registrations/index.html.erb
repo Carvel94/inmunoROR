@@ -22,7 +22,7 @@
 					<div class="panel panel-info">
 						<div class="panel-heading">
 							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><%=usuario.apellido+", "+usuario.nombre%></a>
+								<a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" data-target="#pac<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><%=usuario.apellido+", "+usuario.nombre%></a>
 								<div class="pull-right">
 									<div class="controls">
 										<a data-toggle="collapse" data-parent="#accordion-<%=i.to_s%>" data-target="#pac<%=i.to_s%>" href="#collapse1-<%=i.to_s%>"><span class="fa fa-fw fa-search"></span></a>
@@ -79,7 +79,7 @@
 									<% 	strEntregado = "NO PREPARADO" %>
 									<%  strNoC = "--/--/--" %>
 									<% end %>
-									<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Solicitado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estatus:</b> <%=strEntregado%></td>								
+									<td><i>Frasco <%= fra.fetch(:idFra) %>.	</i> <b>Solicitado:</b>  <%=strNoC+""+fra.fetch(:fCre)%>	<b>Estado:</b> <%=strEntregado%></td>								
 								</tr>
 
 								<% end %>
@@ -109,6 +109,10 @@
 			<%= button_to "Agregar pregunta", new_administrator_faq_path, :method => "get", :class=> "btn btn-primary" %>
 		</div>
 		<div class="col-lg-3"></div>
+	</div>
+	<div style="text-align:center">
+	<%= will_paginate @pacientes,  renderer: BootstrapPagination::Rails %>
+		<%#= js_will_paginate @frascosUsr, {page: params[:page], per_page: 10} %>
 	</div>
 </div>
 <!-- /.container-fluid -->
